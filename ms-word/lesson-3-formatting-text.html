@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 3: Formatting Text</title>
+<style>
+  :root {
+    --bg1: #eef2ff; --bg2: #f8fafc; --card: #ffffff;
+    --card-border: rgba(15,23,42,0.06); --ink: #1e293b; --muted: #64748b;
+    --accent: #6366f1; --accent-ink: #ffffff;
+    --tip-bg: #fef9c3; --tip-border: #eab308; --tip-ink: #713f12;
+    --recap-bg: #ecfdf5; --recap-border: #10b981;
+    --shadow: rgba(15,23,42,0.15); --btn-secondary-bg: #e2e8f0; --btn-secondary-ink: #1e293b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg1: #1e1b4b; --bg2: #0f172a; --card: #1a2036;
+      --card-border: rgba(255,255,255,0.08); --ink: #e7ecff; --muted: #94a3b8;
+      --accent: #818cf8; --accent-ink: #0f172a;
+      --tip-bg: #3f3311; --tip-border: #eab308; --tip-ink: #fef08a;
+      --recap-bg: #082f22; --recap-border: #34d399;
+      --shadow: rgba(0,0,0,0.5); --btn-secondary-bg: #2a3252; --btn-secondary-ink: #e7ecff;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg1: #1e1b4b; --bg2: #0f172a; --card: #1a2036;
+    --card-border: rgba(255,255,255,0.08); --ink: #e7ecff; --muted: #94a3b8;
+    --accent: #818cf8; --accent-ink: #0f172a;
+    --tip-bg: #3f3311; --tip-border: #eab308; --tip-ink: #fef08a;
+    --recap-bg: #082f22; --recap-border: #34d399;
+    --shadow: rgba(0,0,0,0.5); --btn-secondary-bg: #2a3252; --btn-secondary-ink: #e7ecff;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { height: 100%; }
+  body { margin: 0; overscroll-behavior: none; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(180deg, var(--bg1), var(--bg2));
+    min-height: 100dvh;
+    display: flex; justify-content: center;
+    padding: 16px; color: var(--ink);
+    transition: background 0.2s, color 0.2s;
+  }
+  .theme-toggle {
+    position: fixed; top: 14px; right: 14px; width: 42px; height: 42px;
+    border-radius: 50%; background: var(--card); border: 1px solid var(--card-border);
+    box-shadow: 0 4px 14px var(--shadow); font-size: 19px; display: flex;
+    align-items: center; justify-content: center; cursor: pointer; z-index: 20; padding: 0;
+    transition: background 0.2s, transform 0.08s;
+  }
+  .theme-toggle:active { transform: scale(0.92); }
+  .wrap { width: 100%; max-width: 720px; padding-top: 8px; }
+  .card {
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 20px;
+    padding: 26px 24px; box-shadow: 0 20px 60px var(--shadow);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .lesson-nav-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 13.5px; }
+  .lesson-nav-top a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .lesson-nav-top a:hover { text-decoration: underline; }
+  .lesson-badge { background: var(--bg1); color: var(--accent); font-weight: 700; font-size: 11.5px; padding: 4px 10px; border-radius: 999px; letter-spacing: 0.02em; }
+  h1 { font-size: clamp(22px, 5vw, 28px); margin: 0 0 4px; }
+  .subtitle { color: var(--muted); font-size: 14.5px; margin-bottom: 22px; }
+  h2.section-title { font-size: 17px; margin: 28px 0 10px; display: flex; align-items: center; gap: 8px; }
+  p { line-height: 1.65; font-size: 15px; }
+  .tip { background: var(--tip-bg); border-left: 4px solid var(--tip-border); color: var(--tip-ink); border-radius: 8px; padding: 12px 14px; font-size: 14px; line-height: 1.55; margin: 16px 0; }
+  .tip b { display: block; margin-bottom: 3px; }
+  .recap { background: var(--recap-bg); border: 1px solid var(--recap-border); border-radius: 14px; padding: 16px 18px; margin-top: 30px; }
+  .recap h2 { margin: 0 0 10px; font-size: 16px; }
+  .recap ul { margin: 0; padding-left: 20px; font-size: 14.5px; line-height: 1.75; }
+  .lesson-nav-bottom { display: flex; gap: 10px; margin-top: 24px; }
+  .nav-btn { flex: 1; text-align: center; padding: 13px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 14.5px; background: var(--btn-secondary-bg); color: var(--btn-secondary-ink); transition: transform 0.08s; }
+  .nav-btn:active { transform: scale(0.97); }
+  .nav-btn.primary { background: var(--accent); color: var(--accent-ink); }
+
+  .word-mockup { border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,0.12); box-shadow: 0 10px 30px var(--shadow); margin: 14px 0; background: #fff; }
+  .wm-titlebar { background: #2b579a; color: #fff; font-size: 12px; padding: 7px 10px; display: flex; align-items: center; justify-content: space-between; }
+  .wm-titlebar .wm-dots span { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-left: 6px; background: rgba(255,255,255,0.55); }
+  .wm-tabs { background: #f3f2f1; display: flex; gap: 2px; padding: 0 8px; font-size: 11.5px; color: #444; border-bottom: 1px solid #d9d9d9; overflow-x: auto; }
+  .wm-tabs span { padding: 7px 10px; white-space: nowrap; }
+  .wm-tabs span.active { background: #fff; color: #2b579a; font-weight: 700; border-radius: 4px 4px 0 0; }
+  .wm-ribbon { background: #fff; border-bottom: 1px solid #d9d9d9; padding: 8px 10px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .wm-group { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 8px; border-right: 1px solid #e5e5e5; }
+  .wm-group:last-child { border-right: none; }
+  .wm-group .wm-icons { display: flex; gap: 4px; align-items: center; }
+  .wm-btn { min-width: 26px; height: 22px; border-radius: 3px; background: #f3f2f1; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #333; border: 1px solid transparent; padding: 0 4px; }
+  .wm-btn.highlight { background: #cfe0f7; border-color: #2b579a; color: #2b579a; box-shadow: 0 0 0 2px rgba(43,87,154,0.25); }
+  .wm-dropdown { min-width: 62px; height: 22px; border-radius: 3px; background: #f3f2f1; display: flex; align-items: center; justify-content: space-between; font-size: 10.5px; color: #333; padding: 0 6px; border: 1px solid transparent; }
+  .wm-dropdown.highlight { background: #cfe0f7; border-color: #2b579a; color: #2b579a; box-shadow: 0 0 0 2px rgba(43,87,154,0.25); }
+  .wm-swatch { width: 20px; height: 20px; border-radius: 3px; border: 1px solid #ccc; }
+  .wm-group .wm-label { font-size: 9px; color: #666; }
+  .wm-doc { background: #fff; min-height: 110px; padding: 20px 26px; font-size: 14px; color: #222; line-height: 1.6; }
+  .wm-statusbar { background: #2b579a; color: #fff; font-size: 10.5px; padding: 4px 10px; display: flex; justify-content: space-between; }
+  .wm-caption { font-size: 12.5px; color: var(--muted); text-align: center; margin-top: 6px; }
+
+  .before-after { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
+  .ba-box { flex: 1; min-width: 140px; background: var(--bg1); border-radius: 10px; padding: 12px 14px; }
+  .ba-box .ba-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .ba-box .ba-text { font-size: 15px; }
+
+  @media (max-width: 380px) {
+    .card { padding: 18px 14px; }
+    .wm-doc { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">🌙</button>
+<div class="wrap">
+  <div class="card">
+    <div class="lesson-nav-top">
+      <a href="index.html">← All Lessons</a>
+      <span class="lesson-badge">Lesson 3 of 5</span>
+    </div>
+
+    <h1>🎨 Formatting Text</h1>
+    <div class="subtitle">How to select your words, then make them bold, colorful, or a different style.</div>
+
+    <h2 class="section-title">🖱️ Selecting Text First</h2>
+    <p>Before you can change how any text looks, you need to <b>select</b> it — this tells Word exactly which letters or words you want to change. Selected text turns a highlighted blue color.</p>
+    <p>There are a few ways to select text: <b>click and drag</b> across the words with your mouse or finger, <b>double-click</b> a single word to select just that word, or press <b>Ctrl + A</b> to select your whole document at once.</p>
+
+    <div class="before-after">
+      <div class="ba-box">
+        <div class="ba-label">Not Selected</div>
+        <div class="ba-text">I love pizza.</div>
+      </div>
+      <div class="ba-box" style="background:#c7d8f5;">
+        <div class="ba-label">Selected</div>
+        <div class="ba-text" style="background:#5b8def; color:#fff; display:inline; border-radius:2px; padding:0 2px;">I love pizza.</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">🅱️ Bold, Italic, and Underline</h2>
+    <p>Once text is selected, look at the <b>Home</b> tab's <b>Font</b> group for three of the most useful buttons:</p>
+
+    <div class="word-mockup">
+      <div class="wm-titlebar">
+        <span>📄 My Story - Word</span>
+        <span class="wm-dots"><span></span><span></span><span></span></span>
+      </div>
+      <div class="wm-tabs"><span class="active">Home</span><span>Insert</span><span>Layout</span></div>
+      <div class="wm-ribbon">
+        <div class="wm-group">
+          <div class="wm-icons">
+            <div class="wm-btn highlight">B</div>
+            <div class="wm-btn highlight" style="font-style:italic;">I</div>
+            <div class="wm-btn highlight" style="text-decoration:underline;">U</div>
+          </div>
+          <div class="wm-label">Font</div>
+        </div>
+        <div class="wm-group">
+          <div class="wm-icons">
+            <div class="wm-dropdown highlight">Calibri ▾</div>
+          </div>
+          <div class="wm-label">Font Name</div>
+        </div>
+        <div class="wm-group">
+          <div class="wm-icons">
+            <div class="wm-dropdown highlight">11 ▾</div>
+          </div>
+          <div class="wm-label">Font Size</div>
+        </div>
+        <div class="wm-group">
+          <div class="wm-icons">
+            <div class="wm-swatch" style="background:#dc2626;"></div>
+          </div>
+          <div class="wm-label">Font Color</div>
+        </div>
+        <div class="wm-group">
+          <div class="wm-icons">
+            <div class="wm-swatch" style="background:#facc15;"></div>
+          </div>
+          <div class="wm-label">Highlight</div>
+        </div>
+      </div>
+      <div class="wm-doc">
+        My favorite animal is a <b>dolphin</b>. It is <i>very</i> smart, and it can <span style="text-decoration:underline;">swim super fast</span>!
+      </div>
+      <div class="wm-statusbar"><span>Page 1 of 1</span><span>15 words</span></div>
+    </div>
+    <div class="wm-caption">B = Bold, I = Italic, U = Underline — click a highlighted button here to turn that style on for your selected text.</div>
+
+    <p><b>Bold</b> makes text thicker and darker — great for important words. <i>Italic</i> tilts text sideways — often used for titles or emphasis. <span style="text-decoration:underline;">Underline</span> draws a line beneath the text.</p>
+
+    <div class="tip">
+      <b>Try It!</b>
+      Select a whole sentence and click Bold. Then click it again — notice the style turns back off! Most formatting buttons work like a light switch: click once to turn on, click again to turn off.
+    </div>
+
+    <h2 class="section-title">🔤 Font, Size, and Color</h2>
+    <p>Next to Bold/Italic/Underline are two dropdown boxes: one changes the <b>font</b> (the style of the letters, like Calibri or Times New Roman), and the other changes the <b>font size</b> (how big or small the text is — a bigger number means bigger text). There's also a colorful <b>A</b> with a red bar under it for <b>font color</b>, and a highlighter-pen icon for adding a <b>highlight color</b> behind your text, just like using a real highlighter on paper.</p>
+
+    <div class="recap">
+      <h2>✅ What You Learned</h2>
+      <ul>
+        <li><b>Select text first</b> (click-drag, double-click, or Ctrl+A) before formatting it.</li>
+        <li><b>B / I / U</b> buttons apply Bold, Italic, and Underline.</li>
+        <li>Dropdown boxes let you change the <b>font</b> and <b>font size</b>.</li>
+        <li>The <b>Font Color</b> and <b>Highlight</b> tools add color to your text.</li>
+        <li>Most formatting buttons toggle on and off — click once for on, again for off.</li>
+      </ul>
+    </div>
+
+    <div class="lesson-nav-bottom">
+      <a class="nav-btn" href="lesson-2-typing-and-saving.html">← Lesson 2</a>
+      <a class="nav-btn primary" href="lesson-4-lists-and-alignment.html">Lesson 4: Lists &amp; Alignment →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const THEME_KEY = 'msWordLessonsTheme';
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  function effectiveTheme() {
+    const explicit = root.getAttribute('data-theme');
+    if (explicit) return explicit;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function refreshToggleIcon() {
+    const dark = effectiveTheme() === 'dark';
+    themeToggle.textContent = dark ? '☀️' : '🌙';
+    themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    refreshToggleIcon();
+    try { localStorage.setItem(THEME_KEY, theme); } catch (err) { /* ignore */ }
+  }
+  (function initTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch (err) { /* ignore */ }
+    if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+    refreshToggleIcon();
+  })();
+  themeToggle.addEventListener('click', () => {
+    setTheme(effectiveTheme() === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 1: Getting to Know MS Word</title>
+<style>
+  :root {
+    --bg1: #eef2ff; --bg2: #f8fafc; --card: #ffffff;
+    --card-border: rgba(15,23,42,0.06); --ink: #1e293b; --muted: #64748b;
+    --accent: #6366f1; --accent-ink: #ffffff;
+    --tip-bg: #fef9c3; --tip-border: #eab308; --tip-ink: #713f12;
+    --recap-bg: #ecfdf5; --recap-border: #10b981;
+    --shadow: rgba(15,23,42,0.15); --btn-secondary-bg: #e2e8f0; --btn-secondary-ink: #1e293b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg1: #1e1b4b; --bg2: #0f172a; --card: #1a2036;
+      --card-border: rgba(255,255,255,0.08); --ink: #e7ecff; --muted: #94a3b8;
+      --accent: #818cf8; --accent-ink: #0f172a;
+      --tip-bg: #3f3311; --tip-border: #eab308; --tip-ink: #fef08a;
+      --recap-bg: #082f22; --recap-border: #34d399;
+      --shadow: rgba(0,0,0,0.5); --btn-secondary-bg: #2a3252; --btn-secondary-ink: #e7ecff;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg1: #1e1b4b; --bg2: #0f172a; --card: #1a2036;
+    --card-border: rgba(255,255,255,0.08); --ink: #e7ecff; --muted: #94a3b8;
+    --accent: #818cf8; --accent-ink: #0f172a;
+    --tip-bg: #3f3311; --tip-border: #eab308; --tip-ink: #fef08a;
+    --recap-bg: #082f22; --recap-border: #34d399;
+    --shadow: rgba(0,0,0,0.5); --btn-secondary-bg: #2a3252; --btn-secondary-ink: #e7ecff;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { height: 100%; }
+  body { margin: 0; overscroll-behavior: none; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(180deg, var(--bg1), var(--bg2));
+    min-height: 100dvh;
+    display: flex; justify-content: center;
+    padding: 16px; color: var(--ink);
+    transition: background 0.2s, color 0.2s;
+  }
+  .theme-toggle {
+    position: fixed; top: 14px; right: 14px; width: 42px; height: 42px;
+    border-radius: 50%; background: var(--card); border: 1px solid var(--card-border);
+    box-shadow: 0 4px 14px var(--shadow); font-size: 19px; display: flex;
+    align-items: center; justify-content: center; cursor: pointer; z-index: 20; padding: 0;
+    transition: background 0.2s, transform 0.08s;
+  }
+  .theme-toggle:active { transform: scale(0.92); }
+  .wrap { width: 100%; max-width: 720px; padding-top: 8px; }
+  .card {
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 20px;
+    padding: 26px 24px; box-shadow: 0 20px 60px var(--shadow);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .lesson-nav-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px; font-size: 13.5px;
+  }
+  .lesson-nav-top a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .lesson-nav-top a:hover { text-decoration: underline; }
+  .lesson-badge {
+    background: var(--bg1); color: var(--accent); font-weight: 700; font-size: 11.5px;
+    padding: 4px 10px; border-radius: 999px; letter-spacing: 0.02em;
+  }
+  h1 { font-size: clamp(22px, 5vw, 28px); margin: 0 0 4px; }
+  .subtitle { color: var(--muted); font-size: 14.5px; margin-bottom: 22px; }
+  h2.section-title { font-size: 17px; margin: 28px 0 10px; display: flex; align-items: center; gap: 8px; }
+  p { line-height: 1.65; font-size: 15px; }
+  .tip {
+    background: var(--tip-bg); border-left: 4px solid var(--tip-border); color: var(--tip-ink);
+    border-radius: 8px; padding: 12px 14px; font-size: 14px; line-height: 1.55; margin: 16px 0;
+  }
+  .tip b { display: block; margin-bottom: 3px; }
+  .recap {
+    background: var(--recap-bg); border: 1px solid var(--recap-border); border-radius: 14px;
+    padding: 16px 18px; margin-top: 30px;
+  }
+  .recap h2 { margin: 0 0 10px; font-size: 16px; }
+  .recap ul { margin: 0; padding-left: 20px; font-size: 14.5px; line-height: 1.75; }
+  .lesson-nav-bottom {
+    display: flex; gap: 10px; margin-top: 24px;
+  }
+  .nav-btn {
+    flex: 1; text-align: center; padding: 13px; border-radius: 12px; text-decoration: none;
+    font-weight: 700; font-size: 14.5px; background: var(--btn-secondary-bg); color: var(--btn-secondary-ink);
+    transition: transform 0.08s;
+  }
+  .nav-btn:active { transform: scale(0.97); }
+  .nav-btn.primary { background: var(--accent); color: var(--accent-ink); }
+
+  /* ---- MS Word interface mockup (illustrative, not a real screenshot) ---- */
+  .word-mockup {
+    border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,0.12);
+    box-shadow: 0 10px 30px var(--shadow); margin: 14px 0; background: #fff;
+  }
+  .wm-titlebar {
+    background: #2b579a; color: #fff; font-size: 12px; padding: 7px 10px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .wm-titlebar .wm-dots span {
+    width: 9px; height: 9px; border-radius: 50%; display: inline-block;
+    margin-left: 6px; background: rgba(255,255,255,0.55);
+  }
+  .wm-tabs {
+    background: #f3f2f1; display: flex; gap: 2px; padding: 0 8px; font-size: 11.5px;
+    color: #444; border-bottom: 1px solid #d9d9d9; overflow-x: auto;
+  }
+  .wm-tabs span { padding: 7px 10px; white-space: nowrap; }
+  .wm-tabs span.active { background: #fff; color: #2b579a; font-weight: 700; border-radius: 4px 4px 0 0; }
+  .wm-ribbon {
+    background: #fff; border-bottom: 1px solid #d9d9d9; padding: 8px 10px;
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .wm-group {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 0 8px; border-right: 1px solid #e5e5e5;
+  }
+  .wm-group:last-child { border-right: none; }
+  .wm-group .wm-icons { display: flex; gap: 4px; }
+  .wm-btn {
+    min-width: 26px; height: 22px; border-radius: 3px; background: #f3f2f1;
+    display: flex; align-items: center; justify-content: center; font-size: 12px;
+    font-weight: 700; color: #333; border: 1px solid transparent; padding: 0 4px;
+  }
+  .wm-btn.highlight { background: #cfe0f7; border-color: #2b579a; color: #2b579a; box-shadow: 0 0 0 2px rgba(43,87,154,0.25); }
+  .wm-group .wm-label { font-size: 9px; color: #666; }
+  .wm-doc { background: #fff; min-height: 130px; padding: 20px 26px; font-size: 14px; color: #222; line-height: 1.6; }
+  .wm-cursor { display: inline-block; width: 1px; background: #222; animation: blink 1s step-end infinite; height: 1em; vertical-align: middle; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .wm-statusbar { background: #2b579a; color: #fff; font-size: 10.5px; padding: 4px 10px; display: flex; justify-content: space-between; }
+  .wm-caption { font-size: 12.5px; color: var(--muted); text-align: center; margin-top: 6px; }
+
+  @media (max-width: 380px) {
+    .card { padding: 18px 14px; }
+    .wm-doc { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">🌙</button>
+<div class="wrap">
+  <div class="card">
+    <div class="lesson-nav-top">
+      <a href="index.html">← All Lessons</a>
+      <span class="lesson-badge">Lesson 1 of 5</span>
+    </div>
+
+    <h1>📄 Getting to Know Microsoft Word</h1>
+    <div class="subtitle">What Word is for, and the main parts of the screen you'll be using.</div>
+
+    <p>Microsoft Word is a program for <b>typing and creating documents</b> — things like stories, letters, reports, and worksheets. Instead of writing with a pen and paper, you type on a keyboard, and Word shows your words on the screen. You can also change how your words look, add pictures, and print your work or save it to look at again later.</p>
+
+    <p>Before we start typing, let's take a quick tour of the Word screen so you know what everything is called.</p>
+
+    <h2 class="section-title">🖥️ The Word Window</h2>
+    <p>When you open Word, you'll see a screen a little like this:</p>
+
+    <div class="word-mockup">
+      <div class="wm-titlebar">
+        <span>📄 My First Document - Word</span>
+        <span class="wm-dots"><span></span><span></span><span></span></span>
+      </div>
+      <div class="wm-tabs">
+        <span>File</span><span class="active">Home</span><span>Insert</span><span>Design</span><span>Layout</span><span>References</span>
+      </div>
+      <div class="wm-ribbon">
+        <div class="wm-group">
+          <div class="wm-icons">
+            <div class="wm-btn">B</div><div class="wm-btn">I</div><div class="wm-btn">U</div>
+          </div>
+          <div class="wm-label">Font</div>
+        </div>
+        <div class="wm-group">
+          <div class="wm-icons">
+            <div class="wm-btn">☰</div><div class="wm-btn">☰</div><div class="wm-btn">☰</div>
+          </div>
+          <div class="wm-label">Paragraph</div>
+        </div>
+        <div class="wm-group">
+          <div class="wm-icons">
+            <div class="wm-btn">✎</div>
+          </div>
+          <div class="wm-label">Editing</div>
+        </div>
+      </div>
+      <div class="wm-doc">
+        Once upon a time<span class="wm-cursor"></span>
+      </div>
+      <div class="wm-statusbar">
+        <span>Page 1 of 1</span>
+        <span>3 words</span>
+      </div>
+    </div>
+    <div class="wm-caption">A simplified drawing of the Word screen — the real one looks a little different depending on your device, but has the same main parts.</div>
+
+    <h2 class="section-title">🏷️ Title Bar</h2>
+    <p>The dark blue bar at the very top shows the <b>name of your document</b>. If you haven't saved your document yet, it might just say "Document1."</p>
+
+    <h2 class="section-title">📑 The Ribbon and Tabs</h2>
+    <p>Right under the title bar is a row of words like <b>Home</b>, <b>Insert</b>, and <b>Layout</b> — these are called <b>tabs</b>. Clicking a tab changes the row of buttons and icons underneath it, called the <b>Ribbon</b>. Each tab's ribbon has tools grouped together for a certain job — for example, the <b>Home</b> tab has the tools you'll use most: making text bold, changing fonts, and lining up your paragraphs.</p>
+
+    <div class="tip">
+      <b>Try It!</b>
+      The next time you're at a computer with Word, click through a few different tabs — Home, Insert, Layout — just to see how the ribbon changes each time. You don't need to click anything inside it yet, just look!
+    </div>
+
+    <h2 class="section-title">✍️ The Document Area</h2>
+    <p>The big white space below the ribbon is where your writing appears — this is the <b>document area</b>. You'll notice a thin blinking line there; that's called the <b>cursor</b> (or insertion point), and it shows exactly where the next letter you type will appear.</p>
+
+    <h2 class="section-title">📊 The Status Bar</h2>
+    <p>The thin strip at the very bottom of the window is the <b>status bar</b>. It quietly keeps track of useful things while you work, like which page you're on and how many words you've typed so far.</p>
+
+    <div class="recap">
+      <h2>✅ What You Learned</h2>
+      <ul>
+        <li>Word is a program for typing and formatting documents.</li>
+        <li>The <b>Title Bar</b> shows your document's name.</li>
+        <li><b>Tabs</b> (Home, Insert, Layout...) each show a different <b>Ribbon</b> of tools.</li>
+        <li>The <b>Document Area</b> is where you type, and the <b>cursor</b> shows where your next letter will go.</li>
+        <li>The <b>Status Bar</b> at the bottom shows things like page number and word count.</li>
+      </ul>
+    </div>
+
+    <div class="lesson-nav-bottom">
+      <a class="nav-btn" href="index.html">← All Lessons</a>
+      <a class="nav-btn primary" href="lesson-2-typing-and-saving.html">Lesson 2: Typing &amp; Saving →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const THEME_KEY = 'msWordLessonsTheme';
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  function effectiveTheme() {
+    const explicit = root.getAttribute('data-theme');
+    if (explicit) return explicit;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function refreshToggleIcon() {
+    const dark = effectiveTheme() === 'dark';
+    themeToggle.textContent = dark ? '☀️' : '🌙';
+    themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    refreshToggleIcon();
+    try { localStorage.setItem(THEME_KEY, theme); } catch (err) { /* ignore */ }
+  }
+  (function initTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch (err) { /* ignore */ }
+    if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+    refreshToggleIcon();
+  })();
+  themeToggle.addEventListener('click', () => {
+    setTheme(effectiveTheme() === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>

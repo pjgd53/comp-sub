@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 2: Typing and Saving Your Work</title>
+<style>
+  :root {
+    --bg1: #eef2ff; --bg2: #f8fafc; --card: #ffffff;
+    --card-border: rgba(15,23,42,0.06); --ink: #1e293b; --muted: #64748b;
+    --accent: #6366f1; --accent-ink: #ffffff;
+    --tip-bg: #fef9c3; --tip-border: #eab308; --tip-ink: #713f12;
+    --recap-bg: #ecfdf5; --recap-border: #10b981;
+    --shadow: rgba(15,23,42,0.15); --btn-secondary-bg: #e2e8f0; --btn-secondary-ink: #1e293b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg1: #1e1b4b; --bg2: #0f172a; --card: #1a2036;
+      --card-border: rgba(255,255,255,0.08); --ink: #e7ecff; --muted: #94a3b8;
+      --accent: #818cf8; --accent-ink: #0f172a;
+      --tip-bg: #3f3311; --tip-border: #eab308; --tip-ink: #fef08a;
+      --recap-bg: #082f22; --recap-border: #34d399;
+      --shadow: rgba(0,0,0,0.5); --btn-secondary-bg: #2a3252; --btn-secondary-ink: #e7ecff;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg1: #1e1b4b; --bg2: #0f172a; --card: #1a2036;
+    --card-border: rgba(255,255,255,0.08); --ink: #e7ecff; --muted: #94a3b8;
+    --accent: #818cf8; --accent-ink: #0f172a;
+    --tip-bg: #3f3311; --tip-border: #eab308; --tip-ink: #fef08a;
+    --recap-bg: #082f22; --recap-border: #34d399;
+    --shadow: rgba(0,0,0,0.5); --btn-secondary-bg: #2a3252; --btn-secondary-ink: #e7ecff;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { height: 100%; }
+  body { margin: 0; overscroll-behavior: none; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(180deg, var(--bg1), var(--bg2));
+    min-height: 100dvh;
+    display: flex; justify-content: center;
+    padding: 16px; color: var(--ink);
+    transition: background 0.2s, color 0.2s;
+  }
+  .theme-toggle {
+    position: fixed; top: 14px; right: 14px; width: 42px; height: 42px;
+    border-radius: 50%; background: var(--card); border: 1px solid var(--card-border);
+    box-shadow: 0 4px 14px var(--shadow); font-size: 19px; display: flex;
+    align-items: center; justify-content: center; cursor: pointer; z-index: 20; padding: 0;
+    transition: background 0.2s, transform 0.08s;
+  }
+  .theme-toggle:active { transform: scale(0.92); }
+  .wrap { width: 100%; max-width: 720px; padding-top: 8px; }
+  .card {
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 20px;
+    padding: 26px 24px; box-shadow: 0 20px 60px var(--shadow);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .lesson-nav-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 13.5px; }
+  .lesson-nav-top a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .lesson-nav-top a:hover { text-decoration: underline; }
+  .lesson-badge { background: var(--bg1); color: var(--accent); font-weight: 700; font-size: 11.5px; padding: 4px 10px; border-radius: 999px; letter-spacing: 0.02em; }
+  h1 { font-size: clamp(22px, 5vw, 28px); margin: 0 0 4px; }
+  .subtitle { color: var(--muted); font-size: 14.5px; margin-bottom: 22px; }
+  h2.section-title { font-size: 17px; margin: 28px 0 10px; display: flex; align-items: center; gap: 8px; }
+  p { line-height: 1.65; font-size: 15px; }
+  .tip { background: var(--tip-bg); border-left: 4px solid var(--tip-border); color: var(--tip-ink); border-radius: 8px; padding: 12px 14px; font-size: 14px; line-height: 1.55; margin: 16px 0; }
+  .tip b { display: block; margin-bottom: 3px; }
+  .recap { background: var(--recap-bg); border: 1px solid var(--recap-border); border-radius: 14px; padding: 16px 18px; margin-top: 30px; }
+  .recap h2 { margin: 0 0 10px; font-size: 16px; }
+  .recap ul { margin: 0; padding-left: 20px; font-size: 14.5px; line-height: 1.75; }
+  .lesson-nav-bottom { display: flex; gap: 10px; margin-top: 24px; }
+  .nav-btn { flex: 1; text-align: center; padding: 13px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 14.5px; background: var(--btn-secondary-bg); color: var(--btn-secondary-ink); transition: transform 0.08s; }
+  .nav-btn:active { transform: scale(0.97); }
+  .nav-btn.primary { background: var(--accent); color: var(--accent-ink); }
+
+  .word-mockup { border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,0.12); box-shadow: 0 10px 30px var(--shadow); margin: 14px 0; background: #fff; }
+  .wm-titlebar { background: #2b579a; color: #fff; font-size: 12px; padding: 7px 10px; display: flex; align-items: center; justify-content: space-between; }
+  .wm-titlebar .wm-dots span { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-left: 6px; background: rgba(255,255,255,0.55); }
+  .wm-tabs { background: #f3f2f1; display: flex; gap: 2px; padding: 0 8px; font-size: 11.5px; color: #444; border-bottom: 1px solid #d9d9d9; overflow-x: auto; }
+  .wm-tabs span { padding: 7px 10px; white-space: nowrap; }
+  .wm-tabs span.active { background: #fff; color: #2b579a; font-weight: 700; border-radius: 4px 4px 0 0; }
+  .wm-ribbon { background: #fff; border-bottom: 1px solid #d9d9d9; padding: 8px 10px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .wm-group { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 8px; border-right: 1px solid #e5e5e5; }
+  .wm-group:last-child { border-right: none; }
+  .wm-group .wm-icons { display: flex; gap: 4px; }
+  .wm-btn { min-width: 26px; height: 22px; border-radius: 3px; background: #f3f2f1; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #333; border: 1px solid transparent; padding: 0 4px; }
+  .wm-btn.highlight { background: #cfe0f7; border-color: #2b579a; color: #2b579a; box-shadow: 0 0 0 2px rgba(43,87,154,0.25); }
+  .wm-group .wm-label { font-size: 9px; color: #666; }
+  .wm-doc { background: #fff; min-height: 130px; padding: 20px 26px; font-size: 14px; color: #222; line-height: 1.6; }
+  .wm-cursor { display: inline-block; width: 1px; background: #222; animation: blink 1s step-end infinite; height: 1em; vertical-align: middle; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .wm-statusbar { background: #2b579a; color: #fff; font-size: 10.5px; padding: 4px 10px; display: flex; justify-content: space-between; }
+  .wm-caption { font-size: 12.5px; color: var(--muted); text-align: center; margin-top: 6px; }
+
+  /* Save As dialog mockup */
+  .dialog-mockup { border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,0.12); box-shadow: 0 10px 30px var(--shadow); margin: 14px 0; background: #fff; max-width: 380px; }
+  .dialog-titlebar { background: #f3f2f1; color: #333; font-size: 12px; font-weight: 700; padding: 8px 12px; border-bottom: 1px solid #d9d9d9; }
+  .dialog-body { padding: 16px; font-size: 13px; color: #333; }
+  .dialog-row { margin-bottom: 12px; }
+  .dialog-row label { display: block; font-size: 11.5px; color: #666; margin-bottom: 4px; }
+  .dialog-input { border: 1px solid #c7c7c7; border-radius: 4px; padding: 7px 9px; font-size: 13px; background: #fff; color: #222; }
+  .dialog-buttons { display: flex; gap: 8px; justify-content: flex-end; margin-top: 6px; }
+  .dialog-btn { padding: 7px 16px; border-radius: 4px; font-size: 12.5px; font-weight: 600; border: 1px solid #c7c7c7; background: #f3f2f1; color: #333; }
+  .dialog-btn.primary { background: #2b579a; border-color: #2b579a; color: #fff; }
+
+  @media (max-width: 380px) {
+    .card { padding: 18px 14px; }
+    .wm-doc { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">🌙</button>
+<div class="wrap">
+  <div class="card">
+    <div class="lesson-nav-top">
+      <a href="index.html">← All Lessons</a>
+      <span class="lesson-badge">Lesson 2 of 5</span>
+    </div>
+
+    <h1>⌨️ Typing and Saving Your Work</h1>
+    <div class="subtitle">How to start a new document, type your ideas, fix mistakes, and keep your work safe.</div>
+
+    <h2 class="section-title">🆕 Starting a New Document</h2>
+    <p>When you open Word, you usually get a blank white page ready for you to type on. The blinking <b>cursor</b> starts at the top-left corner — that's where your first letter will appear.</p>
+
+    <h2 class="section-title">⌨️ Typing Basics</h2>
+    <p>As you press keys, letters appear where the cursor is, and the cursor moves along with them. A few keys are especially useful to know:</p>
+
+    <div class="word-mockup">
+      <div class="wm-titlebar">
+        <span>📄 My Story - Word</span>
+        <span class="wm-dots"><span></span><span></span><span></span></span>
+      </div>
+      <div class="wm-tabs"><span class="active">Home</span><span>Insert</span><span>Layout</span></div>
+      <div class="wm-doc">
+        My favorite animal is a dolphin.<br>
+        Dolphins are very smart<span class="wm-cursor"></span>
+      </div>
+      <div class="wm-statusbar"><span>Page 1 of 1</span><span>9 words</span></div>
+    </div>
+    <div class="wm-caption">Pressing Enter starts a new line, just like starting a new sentence on paper.</div>
+
+    <p><b>Spacebar</b> adds a space between words. <b>Enter</b> moves the cursor down to start a new line or paragraph. <b>Backspace</b> deletes the letter just before the cursor — handy for fixing typos.</p>
+
+    <h2 class="section-title">↩️ Undo and Redo</h2>
+    <p>Made a mistake? You don't have to fix it by hand. Word remembers your last actions, so you can press <b>Ctrl + Z</b> (or click the curved back-arrow at the top of the screen) to <b>undo</b> your last change. If you undo something by accident, <b>Ctrl + Y</b> (or the forward-curved arrow) will <b>redo</b> it.</p>
+
+    <div class="tip">
+      <b>Try It!</b>
+      Type a short sentence, then press Ctrl+Z a few times and watch your words disappear backwards! Press Ctrl+Y to bring them back.
+    </div>
+
+    <h2 class="section-title">💾 Saving Your Document</h2>
+    <p>Typing your work is only half the job — if you close Word without saving, your work can disappear! Saving stores your document as a <b>file</b> on the computer so you can open it again later, even after turning the computer off.</p>
+
+    <p>The fastest way to save is pressing <b>Ctrl + S</b> on your keyboard. The first time you save a brand-new document, Word will ask you to choose a <b>file name</b> and a <b>location</b> to save it — this is called <b>Save As</b>.</p>
+
+    <div class="dialog-mockup">
+      <div class="dialog-titlebar">Save As</div>
+      <div class="dialog-body">
+        <div class="dialog-row">
+          <label>File name</label>
+          <input class="dialog-input" value="My Story" readonly>
+        </div>
+        <div class="dialog-row">
+          <label>Save as type</label>
+          <input class="dialog-input" value="Word Document (*.docx)" readonly>
+        </div>
+        <div class="dialog-buttons">
+          <div class="dialog-btn">Cancel</div>
+          <div class="dialog-btn primary">Save</div>
+        </div>
+      </div>
+    </div>
+    <div class="wm-caption">Give your file a name you'll remember — Word automatically adds ".docx" to the end.</div>
+
+    <p>After that first save, pressing <b>Ctrl + S</b> again just quietly updates the same file — no dialog box needed. That's why it's a good habit to save often while you work, especially before you take a break!</p>
+
+    <div class="tip">
+      <b>Remember</b>
+      If the power goes out or the computer freezes, any typing you haven't saved yet could be lost. Save early, and save often!
+    </div>
+
+    <div class="recap">
+      <h2>✅ What You Learned</h2>
+      <ul>
+        <li>The cursor shows where your next typed letter will appear.</li>
+        <li><b>Spacebar</b>, <b>Enter</b>, and <b>Backspace</b> are your everyday typing tools.</li>
+        <li><b>Ctrl+Z</b> undoes a mistake; <b>Ctrl+Z</b> then <b>Ctrl+Y</b> redoes it.</li>
+        <li><b>Ctrl+S</b> saves your work — the first time, you'll choose a file name (Save As).</li>
+        <li>Save often, so you never lose your work!</li>
+      </ul>
+    </div>
+
+    <div class="lesson-nav-bottom">
+      <a class="nav-btn" href="lesson-1-getting-to-know-word.html">← Lesson 1</a>
+      <a class="nav-btn primary" href="lesson-3-formatting-text.html">Lesson 3: Formatting Text →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const THEME_KEY = 'msWordLessonsTheme';
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  function effectiveTheme() {
+    const explicit = root.getAttribute('data-theme');
+    if (explicit) return explicit;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function refreshToggleIcon() {
+    const dark = effectiveTheme() === 'dark';
+    themeToggle.textContent = dark ? '☀️' : '🌙';
+    themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    refreshToggleIcon();
+    try { localStorage.setItem(THEME_KEY, theme); } catch (err) { /* ignore */ }
+  }
+  (function initTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch (err) { /* ignore */ }
+    if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+    refreshToggleIcon();
+  })();
+  themeToggle.addEventListener('click', () => {
+    setTheme(effectiveTheme() === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>
