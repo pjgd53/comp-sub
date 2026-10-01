@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lesson 5: Pictures and Printing</title>
+<title>Lesson 10: Page Setup and Borders</title>
 <style>
   :root {
     --bg1: #eef2ff; --bg2: #f8fafc; --card: #ffffff;
@@ -120,6 +120,50 @@
     .card { padding: 18px 14px; }
     .wm-doc { padding: 14px 16px; }
   }
+
+  /* --- extra mockup pieces for lessons 6-10 --- */
+  .tip b { display: inline; margin: 0; }
+  .tip b.tip-title { display: block; margin-bottom: 3px; }
+  .kbd { display: inline-block; padding: 1px 7px; border-radius: 5px; border: 1px solid var(--card-border); border-bottom-width: 3px; background: var(--bg1); font: 700 12.5px "Consolas", "Menlo", monospace; color: var(--ink); white-space: nowrap; }
+  .shortcut-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 14px 0; }
+  .shortcut { background: var(--bg1); border-radius: 12px; padding: 12px; text-align: center; }
+  .shortcut .keys { font-size: 15px; margin-bottom: 6px; }
+  .shortcut .what { font-size: 13px; color: var(--muted); }
+  .shortcut .what b { color: var(--ink); }
+  .steps { padding-left: 22px; margin: 10px 0; }
+  .steps li { line-height: 1.65; font-size: 15px; margin-bottom: 4px; }
+  .sel { background: #b4d3f7; }
+  .spell { text-decoration: underline wavy #e11d48; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+  .gram { text-decoration: underline double #2563eb; text-underline-offset: 3px; }
+  .ctx-menu { display: inline-block; background: #fff; border: 1px solid #c7c7c7; border-radius: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.18); font-size: 12.5px; color: #222; min-width: 150px; overflow: hidden; margin-top: 6px; }
+  .ctx-menu div { padding: 6px 12px; }
+  .ctx-menu div.sugg { font-weight: 700; }
+  .ctx-menu div.hl { background: #cfe0f7; }
+  .ctx-menu div.sep { padding: 0; border-top: 1px solid #e5e5e5; }
+  .wm-table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  .wm-table td, .wm-table th { border: 1px solid #8aa4c8; padding: 6px 8px; text-align: left; }
+  .wm-table th { background: #2b579a; color: #fff; }
+  .wm-table td.cursor-cell { background: #eef4fc; box-shadow: inset 0 0 0 2px #2b579a; }
+  .grid-pick { display: inline-grid; grid-template-columns: repeat(6, 14px); gap: 3px; padding: 8px; background: #fff; border: 1px solid #c7c7c7; border-radius: 6px; }
+  .grid-pick span { width: 14px; height: 14px; border: 1px solid #b0b0b0; background: #fff; }
+  .grid-pick span.on { background: #f6c38b; border-color: #d97706; }
+  .pages { display: flex; gap: 22px; justify-content: center; align-items: flex-end; flex-wrap: wrap; margin: 14px 0; }
+  .page { background: #fff; border: 1px solid #c7c7c7; box-shadow: 0 6px 16px var(--shadow); position: relative; color: #555; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center; }
+  .page.portrait { width: 96px; height: 128px; }
+  .page.landscape { width: 128px; height: 96px; }
+  .page .margin-box { position: absolute; border: 1px dashed #93c5fd; }
+  .page-label { text-align: center; font-size: 12.5px; color: var(--muted); margin-top: 6px; font-weight: 600; }
+  .bordered-page { width: 210px; height: 150px; background: #fff7e6; border: 1px solid #c7c7c7; box-shadow: 0 6px 16px var(--shadow); padding: 10px; margin: 14px auto; }
+  .bordered-page .inner { border: 5px double #2b579a; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #2b579a; font-weight: 800; font-size: 15px; text-align: center; gap: 4px; }
+  .bordered-page .inner small { font-weight: 500; color: #555; font-size: 11px; }
+  .file-list { font-size: 12.5px; color: #222; }
+  .file-list div { padding: 6px 8px; border-radius: 4px; display: flex; gap: 8px; align-items: center; }
+  .file-list div.hl { background: #cfe0f7; }
+  .file-list div span.date { margin-left: auto; color: #777; font-size: 11.5px; }
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  @media (max-width: 520px) { .compare { grid-template-columns: 1fr; } }
+  .compare > div { background: var(--bg1); border-radius: 12px; padding: 12px 14px; font-size: 14px; line-height: 1.55; }
+  .compare h3 { margin: 0 0 6px; font-size: 15px; }
 </style>
 </head>
 <body>
@@ -128,101 +172,82 @@
   <div class="card">
     <div class="lesson-nav-top">
       <a href="index.html">← All Lessons</a>
-      <span class="lesson-badge">Lesson 5 of 10</span>
+      <span class="lesson-badge">Lesson 10 of 10</span>
     </div>
 
-    <h1>🖼️ Adding Pictures and Printing</h1>
-    <div class="subtitle">How to put an image into your document and get your finished work onto paper.</div>
+    <h1>🖼️ Page Setup and Borders</h1>
+    <div class="subtitle">Change the shape of your page and add a frame — great for posters and certificates.</div>
 
-    <h2 class="section-title">📷 Inserting a Picture</h2>
-    <p>Pictures make a document more fun and easier to understand. To add one, click the <b>Insert</b> tab, then click <b>Pictures</b>. Word will let you choose a picture file from your computer, and it will drop into your document right where your cursor was.</p>
+    <h2 class="section-title">↕️ Portrait or Landscape?</h2>
+    <p>The way your page faces is called its <b>orientation</b>. Go to the <b>Layout</b> tab and click <b>Orientation</b>.</p>
+    <div class="pages">
+      <div><div class="page portrait">Portrait<br>(tall)</div><div class="page-label">Letters, reports</div></div>
+      <div><div class="page landscape">Landscape<br>(wide)</div><div class="page-label">Posters, certificates</div></div>
+    </div>
+
+    <h2 class="section-title">📏 Margins</h2>
+    <p><b>Margins</b> are the empty spaces around the edges of the page. Word won't type in them, so your words don't fall off the paper when you print. Click <b>Layout › Margins</b> and choose <b>Normal</b> for most work, or <b>Narrow</b> if you need more room.</p>
+    <div class="pages">
+      <div><div class="page portrait"><div class="margin-box" style="inset:14px"></div>Normal</div></div>
+      <div><div class="page portrait"><div class="margin-box" style="inset:6px"></div>Narrow</div></div>
+    </div>
+    <div class="wm-caption">The dashed box shows where you can type. Narrow margins give you more space.</div>
+
+    <h2 class="section-title">🎨 Page Color and Page Borders</h2>
+    <p>Click the <b>Design</b> tab. On the right side you'll find:</p>
+    <ul class="steps">
+      <li><b>Page Color</b> — changes the background color of the whole page.</li>
+      <li><b>Page Borders</b> — opens a window where you can add a frame around the page.</li>
+    </ul>
 
     <div class="word-mockup">
-      <div class="wm-titlebar">
-        <span>📄 My Report - Word</span>
-        <span class="wm-dots"><span></span><span></span><span></span></span>
-      </div>
-      <div class="wm-tabs"><span>Home</span><span class="active">Insert</span><span>Layout</span></div>
-      <div class="wm-ribbon">
-        <div class="wm-group">
-          <div class="wm-icons">
-            <div class="wm-btn highlight">🖼️</div>
-          </div>
-          <div class="wm-label">Pictures</div>
-        </div>
-        <div class="wm-group">
-          <div class="wm-icons">
-            <div class="wm-btn">▦</div>
-          </div>
-          <div class="wm-label">Table</div>
-        </div>
-        <div class="wm-group">
-          <div class="wm-icons">
-            <div class="wm-btn">🔷</div>
-          </div>
-          <div class="wm-label">Shapes</div>
-        </div>
-      </div>
-      <div class="wm-doc">
-        My pet is a rabbit.
-        <div class="pic-placeholder">
-          <div class="handle tl"></div><div class="handle tr"></div>
-          <div class="handle bl"></div><div class="handle br"></div>
-        </div>
-        Rabbits love carrots!
-      </div>
-      <div class="wm-statusbar"><span>Page 1 of 1</span><span>8 words</span></div>
+      <div class="wm-titlebar"><span>📄 My Certificate - Word</span><span class="wm-dots"><span></span><span></span><span></span></span></div>
+      <div class="wm-tabs"><span>File</span><span>Home</span><span>Insert</span><span class="active">Design</span><span>Layout</span><span>Review</span></div>
+      <div class="wm-ribbon"><div class="wm-group"><div class="wm-icons"><div class="wm-btn">🎨 Page Color</div><div class="wm-btn highlight">🔲 Page Borders</div></div><div class="wm-label">Page Background</div></div></div>
+      <div class="wm-doc"><div class="bordered-page"><div class="inner">⭐ CERTIFICATE ⭐<small>Awarded to Juan for great typing!</small></div></div></div>
+      <div class="wm-statusbar"><span>Page 1 of 1</span><span>English (Philippines)</span></div>
     </div>
-    <div class="wm-caption">The small white squares around a picture's edges are called <b>handles</b> — you'll see these once a picture is selected.</div>
-
-    <h2 class="section-title">📐 Resizing a Picture</h2>
-    <p>Once a picture is in your document, click it once to select it — small square <b>handles</b> appear around its edges. To make the picture bigger or smaller, click and drag one of the <b>corner</b> handles. Dragging a corner keeps the picture's shape looking right; dragging an edge handle can stretch or squash it, so corners are usually the safest choice.</p>
-
-    <div class="tip">
-      <b>Try It!</b>
-      After inserting a picture, click somewhere else in your document first to deselect it — you'll notice the handles disappear. Click the picture again any time you want to resize or move it.
-    </div>
-
-    <h2 class="section-title">🖨️ Printing Your Document</h2>
-    <p>When your document is ready, you can print it onto paper. Press <b>Ctrl + P</b> (or click <b>File</b>, then <b>Print</b>) to open the Print screen. Here you can choose which printer to use and how many copies you want, and see a <b>Print Preview</b> — a picture of exactly how your pages will look before any paper is used.</p>
 
     <div class="dialog-mockup">
-      <div class="dialog-titlebar">Print</div>
+      <div class="dialog-titlebar">Borders and Shading › Page Border</div>
       <div class="dialog-body">
-        <div class="dialog-row">
-          <label>Printer</label>
-          <div class="dialog-input">Classroom Printer</div>
-        </div>
-        <div class="dialog-row">
-          <label>Copies</label>
-          <div class="dialog-input">1</div>
-        </div>
-        <div class="dialog-buttons">
-          <div class="dialog-btn">Cancel</div>
-          <div class="dialog-btn primary">Print</div>
-        </div>
+        <div class="dialog-row"><label>Setting</label><div class="dialog-input">Box</div></div>
+        <div class="dialog-row"><label>Style</label><div class="dialog-input">═══ double</div></div>
+        <div class="dialog-row"><label>Color</label><div class="dialog-input">Blue</div></div>
+        <div class="dialog-row"><label>Art</label><div class="dialog-input">(none) ▾</div></div>
+        <div class="dialog-buttons"><div class="dialog-btn">Cancel</div><div class="dialog-btn primary">OK</div></div>
       </div>
     </div>
-    <div class="wm-caption">Always check the Print Preview before printing — it saves paper if something needs fixing first!</div>
+    <div class="wm-caption">Choose <b>Box</b>, then pick a line style and color — or try the <b>Art</b> list for stars, hearts, and more!</div>
 
     <div class="tip">
-      <b>Remember</b>
-      Printing uses paper and ink, so it's a good habit to re-read your document and check the preview carefully before you click Print — especially if you need more than one copy!
+      <b class="tip-title">Remember</b>
+      Page colors can use a lot of printer ink. A colorful border on a white page looks great and saves ink!
+    </div>
+
+    <div class="tip">
+      <b class="tip-title">Try It! — Make a Certificate</b>
+      Change the page to <b>Landscape</b>. Add a <b>Page Border</b> using the <b>Art</b> list. Type <i>"Certificate of Achievement"</i> in a big, bold font, center it, and add the name of a classmate who helped you this week!
     </div>
 
     <div class="recap">
       <h2>✅ What You Learned</h2>
       <ul>
-        <li>The <b>Insert</b> tab's <b>Pictures</b> button adds an image to your document.</li>
-        <li>Click a picture to select it, then drag a <b>corner handle</b> to resize it neatly.</li>
-        <li><b>Ctrl + P</b> opens the Print screen, where you pick a printer and number of copies.</li>
-        <li>Always check the <b>Print Preview</b> before printing to save paper.</li>
+        <li><b>Layout › Orientation</b>: Portrait is tall, Landscape is wide.</li>
+        <li><b>Margins</b> are the empty edges of the page — <b>Normal</b> fits most work.</li>
+        <li><b>Design › Page Color</b> changes the background.</li>
+        <li><b>Design › Page Borders</b> adds a frame — try the Art list!</li>
       </ul>
     </div>
 
+    <div class="tip" style="background: var(--recap-bg); border-color: var(--recap-border); color: var(--ink);">
+      <b class="tip-title">🎉 You finished all 10 lessons!</b>
+      You can now open and save files, format text, make lists and tables, copy and paste, check spelling, add pictures and borders, and print. <b>Final project:</b> make a one-page <i>"All About Me"</i> poster in Landscape with a page border, a big, bold title, a picture, and a small table of your favorites. Check your spelling with <b>F7</b> before you save!
+    </div>
+
     <div class="lesson-nav-bottom">
-      <a class="nav-btn" href="lesson-4-lists-and-alignment.html">← Lesson 4</a>
-      <a class="nav-btn primary" href="lesson-6-open-and-save-as.html">Lesson 6: Open &amp; Save As →</a>
+      <a class="nav-btn" href="lesson-9-making-a-table.html">← Lesson 9</a>
+      <a class="nav-btn primary" href="index.html">Back to All Lessons</a>
     </div>
   </div>
 </div>

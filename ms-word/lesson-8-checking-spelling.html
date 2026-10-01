@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lesson 5: Pictures and Printing</title>
+<title>Lesson 8: Checking Your Spelling</title>
 <style>
   :root {
     --bg1: #eef2ff; --bg2: #f8fafc; --card: #ffffff;
@@ -120,6 +120,50 @@
     .card { padding: 18px 14px; }
     .wm-doc { padding: 14px 16px; }
   }
+
+  /* --- extra mockup pieces for lessons 6-10 --- */
+  .tip b { display: inline; margin: 0; }
+  .tip b.tip-title { display: block; margin-bottom: 3px; }
+  .kbd { display: inline-block; padding: 1px 7px; border-radius: 5px; border: 1px solid var(--card-border); border-bottom-width: 3px; background: var(--bg1); font: 700 12.5px "Consolas", "Menlo", monospace; color: var(--ink); white-space: nowrap; }
+  .shortcut-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 14px 0; }
+  .shortcut { background: var(--bg1); border-radius: 12px; padding: 12px; text-align: center; }
+  .shortcut .keys { font-size: 15px; margin-bottom: 6px; }
+  .shortcut .what { font-size: 13px; color: var(--muted); }
+  .shortcut .what b { color: var(--ink); }
+  .steps { padding-left: 22px; margin: 10px 0; }
+  .steps li { line-height: 1.65; font-size: 15px; margin-bottom: 4px; }
+  .sel { background: #b4d3f7; }
+  .spell { text-decoration: underline wavy #e11d48; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+  .gram { text-decoration: underline double #2563eb; text-underline-offset: 3px; }
+  .ctx-menu { display: inline-block; background: #fff; border: 1px solid #c7c7c7; border-radius: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.18); font-size: 12.5px; color: #222; min-width: 150px; overflow: hidden; margin-top: 6px; }
+  .ctx-menu div { padding: 6px 12px; }
+  .ctx-menu div.sugg { font-weight: 700; }
+  .ctx-menu div.hl { background: #cfe0f7; }
+  .ctx-menu div.sep { padding: 0; border-top: 1px solid #e5e5e5; }
+  .wm-table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  .wm-table td, .wm-table th { border: 1px solid #8aa4c8; padding: 6px 8px; text-align: left; }
+  .wm-table th { background: #2b579a; color: #fff; }
+  .wm-table td.cursor-cell { background: #eef4fc; box-shadow: inset 0 0 0 2px #2b579a; }
+  .grid-pick { display: inline-grid; grid-template-columns: repeat(6, 14px); gap: 3px; padding: 8px; background: #fff; border: 1px solid #c7c7c7; border-radius: 6px; }
+  .grid-pick span { width: 14px; height: 14px; border: 1px solid #b0b0b0; background: #fff; }
+  .grid-pick span.on { background: #f6c38b; border-color: #d97706; }
+  .pages { display: flex; gap: 22px; justify-content: center; align-items: flex-end; flex-wrap: wrap; margin: 14px 0; }
+  .page { background: #fff; border: 1px solid #c7c7c7; box-shadow: 0 6px 16px var(--shadow); position: relative; color: #555; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center; }
+  .page.portrait { width: 96px; height: 128px; }
+  .page.landscape { width: 128px; height: 96px; }
+  .page .margin-box { position: absolute; border: 1px dashed #93c5fd; }
+  .page-label { text-align: center; font-size: 12.5px; color: var(--muted); margin-top: 6px; font-weight: 600; }
+  .bordered-page { width: 210px; height: 150px; background: #fff7e6; border: 1px solid #c7c7c7; box-shadow: 0 6px 16px var(--shadow); padding: 10px; margin: 14px auto; }
+  .bordered-page .inner { border: 5px double #2b579a; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #2b579a; font-weight: 800; font-size: 15px; text-align: center; gap: 4px; }
+  .bordered-page .inner small { font-weight: 500; color: #555; font-size: 11px; }
+  .file-list { font-size: 12.5px; color: #222; }
+  .file-list div { padding: 6px 8px; border-radius: 4px; display: flex; gap: 8px; align-items: center; }
+  .file-list div.hl { background: #cfe0f7; }
+  .file-list div span.date { margin-left: auto; color: #777; font-size: 11.5px; }
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  @media (max-width: 520px) { .compare { grid-template-columns: 1fr; } }
+  .compare > div { background: var(--bg1); border-radius: 12px; padding: 12px 14px; font-size: 14px; line-height: 1.55; }
+  .compare h3 { margin: 0 0 6px; font-size: 15px; }
 </style>
 </head>
 <body>
@@ -128,101 +172,62 @@
   <div class="card">
     <div class="lesson-nav-top">
       <a href="index.html">← All Lessons</a>
-      <span class="lesson-badge">Lesson 5 of 10</span>
+      <span class="lesson-badge">Lesson 8 of 10</span>
     </div>
 
-    <h1>🖼️ Adding Pictures and Printing</h1>
-    <div class="subtitle">How to put an image into your document and get your finished work onto paper.</div>
+    <h1>🔍 Checking Your Spelling</h1>
+    <div class="subtitle">Let Word help you find and fix mistakes — but always read your work too!</div>
 
-    <h2 class="section-title">📷 Inserting a Picture</h2>
-    <p>Pictures make a document more fun and easier to understand. To add one, click the <b>Insert</b> tab, then click <b>Pictures</b>. Word will let you choose a picture file from your computer, and it will drop into your document right where your cursor was.</p>
+    <h2 class="section-title">〰️ What Do the Colored Lines Mean?</h2>
+    <p>As you type, Word quietly checks your words. When it finds something that might be wrong, it draws a line under it:</p>
+    <div class="compare">
+      <div><h3><span class="spell">Red wavy line</span></h3>A word that might be <b>spelled wrong</b>, like <span class="spell">bananna</span>.</div>
+      <div><h3><span class="gram">Blue double line</span></h3>A possible <b>grammar</b> problem, like <span class="gram">She go</span> to school.</div>
+    </div>
 
     <div class="word-mockup">
-      <div class="wm-titlebar">
-        <span>📄 My Report - Word</span>
-        <span class="wm-dots"><span></span><span></span><span></span></span>
-      </div>
-      <div class="wm-tabs"><span>Home</span><span class="active">Insert</span><span>Layout</span></div>
-      <div class="wm-ribbon">
-        <div class="wm-group">
-          <div class="wm-icons">
-            <div class="wm-btn highlight">🖼️</div>
-          </div>
-          <div class="wm-label">Pictures</div>
-        </div>
-        <div class="wm-group">
-          <div class="wm-icons">
-            <div class="wm-btn">▦</div>
-          </div>
-          <div class="wm-label">Table</div>
-        </div>
-        <div class="wm-group">
-          <div class="wm-icons">
-            <div class="wm-btn">🔷</div>
-          </div>
-          <div class="wm-label">Shapes</div>
-        </div>
-      </div>
-      <div class="wm-doc">
-        My pet is a rabbit.
-        <div class="pic-placeholder">
-          <div class="handle tl"></div><div class="handle tr"></div>
-          <div class="handle bl"></div><div class="handle br"></div>
-        </div>
-        Rabbits love carrots!
-      </div>
-      <div class="wm-statusbar"><span>Page 1 of 1</span><span>8 words</span></div>
+      <div class="wm-titlebar"><span>📄 Science Notes - Word</span><span class="wm-dots"><span></span><span></span><span></span></span></div>
+      <div class="wm-tabs"><span>File</span><span>Home</span><span>Insert</span><span>Design</span><span>Layout</span><span class="active">Review</span></div>
+      <div class="wm-ribbon"><div class="wm-group"><div class="wm-icons"><div class="wm-btn highlight">ABC ✓</div></div><div class="wm-label">Proofing</div></div><div class="wm-group"><div class="wm-icons"><div class="wm-btn">🌐</div></div><div class="wm-label">Language</div></div></div>
+      <div class="wm-doc">Plants need <span class="spell">sunlite</span> and water to grow. <span class="gram">They makes</span> their own food.<br><div class="ctx-menu"><div class="sugg hl">sunlight</div><div class="sugg">sunlit</div><div class="sep"></div><div>Ignore Once</div><div>Add to Dictionary</div></div></div>
+      <div class="wm-statusbar"><span>Page 1 of 1</span><span>English (Philippines)</span></div>
     </div>
-    <div class="wm-caption">The small white squares around a picture's edges are called <b>handles</b> — you'll see these once a picture is selected.</div>
+    <div class="wm-caption">Right-click a word with a red line to see Word's suggestions.</div>
 
-    <h2 class="section-title">📐 Resizing a Picture</h2>
-    <p>Once a picture is in your document, click it once to select it — small square <b>handles</b> appear around its edges. To make the picture bigger or smaller, click and drag one of the <b>corner</b> handles. Dragging a corner keeps the picture's shape looking right; dragging an edge handle can stretch or squash it, so corners are usually the safest choice.</p>
+    <h2 class="section-title">🖱️ Fixing One Word (Right-Click)</h2>
+    <ol class="steps">
+      <li><b>Right-click</b> the word with the red or blue line.</li>
+      <li>A small menu shows <b>suggestions</b> at the top.</li>
+      <li>Click the correct one — Word fixes it for you!</li>
+    </ol>
+    <p>If the word is actually right — like a name such as <i>"Sorsogon"</i> — choose <b>Ignore Once</b> to remove the line.</p>
+
+    <h2 class="section-title">📝 Checking the Whole Document (F7)</h2>
+    <p>Press <span class="kbd">F7</span>, or go to the <b>Review</b> tab and click <b>Spelling &amp; Grammar</b> (in newer Word this button may be called <b>Editor</b>). Word jumps to each mistake one by one so you can <b>Change</b> it or <b>Ignore</b> it.</p>
 
     <div class="tip">
-      <b>Try It!</b>
-      After inserting a picture, click somewhere else in your document first to deselect it — you'll notice the handles disappear. Click the picture again any time you want to resize or move it.
+      <b class="tip-title">Word Is Not Perfect!</b>
+      Spell check only knows if a word is a <i>real word</i> — not if it’s the <i>right word</i>. "I <b>red</b> a book" has no red line, but it should be "<b>read</b>"! Always read your work yourself before saving or printing.
     </div>
-
-    <h2 class="section-title">🖨️ Printing Your Document</h2>
-    <p>When your document is ready, you can print it onto paper. Press <b>Ctrl + P</b> (or click <b>File</b>, then <b>Print</b>) to open the Print screen. Here you can choose which printer to use and how many copies you want, and see a <b>Print Preview</b> — a picture of exactly how your pages will look before any paper is used.</p>
-
-    <div class="dialog-mockup">
-      <div class="dialog-titlebar">Print</div>
-      <div class="dialog-body">
-        <div class="dialog-row">
-          <label>Printer</label>
-          <div class="dialog-input">Classroom Printer</div>
-        </div>
-        <div class="dialog-row">
-          <label>Copies</label>
-          <div class="dialog-input">1</div>
-        </div>
-        <div class="dialog-buttons">
-          <div class="dialog-btn">Cancel</div>
-          <div class="dialog-btn primary">Print</div>
-        </div>
-      </div>
-    </div>
-    <div class="wm-caption">Always check the Print Preview before printing — it saves paper if something needs fixing first!</div>
 
     <div class="tip">
-      <b>Remember</b>
-      Printing uses paper and ink, so it's a good habit to re-read your document and check the preview carefully before you click Print — especially if you need more than one copy!
+      <b class="tip-title">Try It! — Mistake Hunt</b>
+      Type this sentence exactly: <i>"My freind and I goed to the libary yesturday."</i> How many red lines do you see? Fix them all using right-click, then press <b>F7</b> to make sure nothing is left.
     </div>
 
     <div class="recap">
       <h2>✅ What You Learned</h2>
       <ul>
-        <li>The <b>Insert</b> tab's <b>Pictures</b> button adds an image to your document.</li>
-        <li>Click a picture to select it, then drag a <b>corner handle</b> to resize it neatly.</li>
-        <li><b>Ctrl + P</b> opens the Print screen, where you pick a printer and number of copies.</li>
-        <li>Always check the <b>Print Preview</b> before printing to save paper.</li>
+        <li>A <b>red wavy line</b> = possible spelling mistake. A <b>blue double line</b> = possible grammar mistake.</li>
+        <li><b>Right-click</b> the word and pick a suggestion to fix it.</li>
+        <li><b>F7</b> or <b>Review › Spelling &amp; Grammar</b> checks the whole document.</li>
+        <li>Spell check can miss mistakes — always re-read your work.</li>
       </ul>
     </div>
 
     <div class="lesson-nav-bottom">
-      <a class="nav-btn" href="lesson-4-lists-and-alignment.html">← Lesson 4</a>
-      <a class="nav-btn primary" href="lesson-6-open-and-save-as.html">Lesson 6: Open &amp; Save As →</a>
+      <a class="nav-btn" href="lesson-7-copy-cut-paste.html">← Lesson 7</a>
+      <a class="nav-btn primary" href="lesson-9-making-a-table.html">Lesson 9: Making a Table →</a>
     </div>
   </div>
 </div>
