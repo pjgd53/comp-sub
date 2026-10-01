@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>Typing Activity</title>
+<style>
+  :root {
+    --bg1: #eef2ff;
+    --bg2: #f8fafc;
+    --card: #ffffff;
+    --card-border: rgba(15,23,42,0.06);
+    --ink: #1e293b;
+    --muted: #64748b;
+    --accent: #6366f1;
+    --good: #16a34a;
+    --bad: #dc2626;
+    --pending: #cbd5e1;
+    --stat-bg: #f1f5f9;
+    --target-bg: #f8fafc;
+    --input-bg: #ffffff;
+    --input-border: #e2e8f0;
+    --char-wrong-bg: #fee2e2;
+    --char-current-bg: #e0e7ff;
+    --btn-secondary-bg: #e2e8f0;
+    --btn-secondary-ink: #1e293b;
+    --shadow: rgba(15,23,42,0.15);
+  }
+  /* Follow system preference when the visitor hasn't picked explicitly. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg1: #1e1b4b;
+      --bg2: #0f172a;
+      --card: #1a2036;
+      --card-border: rgba(255,255,255,0.08);
+      --ink: #e7ecff;
+      --muted: #94a3b8;
+      --accent: #818cf8;
+      --good: #4ade80;
+      --bad: #f87171;
+      --pending: #475569;
+      --stat-bg: #131a30;
+      --target-bg: #11162a;
+      --input-bg: #11162a;
+      --input-border: #334155;
+      --char-wrong-bg: rgba(248,113,113,0.18);
+      --char-current-bg: rgba(129,140,248,0.22);
+      --btn-secondary-bg: #2a3252;
+      --btn-secondary-ink: #e7ecff;
+      --shadow: rgba(0,0,0,0.5);
+    }
+  }
+  /* Explicit choice (via the toggle) always wins over system preference. */
+  :root[data-theme="dark"] {
+    --bg1: #1e1b4b;
+    --bg2: #0f172a;
+    --card: #1a2036;
+    --card-border: rgba(255,255,255,0.08);
+    --ink: #e7ecff;
+    --muted: #94a3b8;
+    --accent: #818cf8;
+    --good: #4ade80;
+    --bad: #f87171;
+    --pending: #475569;
+    --stat-bg: #131a30;
+    --target-bg: #11162a;
+    --input-bg: #11162a;
+    --input-border: #334155;
+    --char-wrong-bg: rgba(248,113,113,0.18);
+    --char-current-bg: rgba(129,140,248,0.22);
+    --btn-secondary-bg: #2a3252;
+    --btn-secondary-ink: #e7ecff;
+    --shadow: rgba(0,0,0,0.5);
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  /* body deliberately has no fixed height — only html does. A fixed height
+     combined with flex centering would push overflow content half above
+     the reachable top of the page on short screens; min-height alone lets
+     body grow to fit content instead. */
+  html { height: 100%; }
+  body {
+    margin: 0;
+    overscroll-behavior: none;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: radial-gradient(circle at top, var(--bg1), var(--bg2));
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    transition: background 0.2s;
+  }
+  .theme-toggle {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 4px 14px var(--shadow);
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    padding: 0;
+    transition: background 0.2s, transform 0.08s;
+  }
+  .theme-toggle:active { transform: scale(0.92); }
+  .wrap {
+    width: 100%;
+    max-width: 640px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 24px 20px;
+    box-shadow: 0 20px 60px var(--shadow);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  h1 {
+    margin: 0 0 4px;
+    font-size: clamp(20px, 5vw, 28px);
+    color: var(--ink);
+    text-align: center;
+  }
+  .subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .stats {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .stat {
+    background: var(--stat-bg);
+    border-radius: 12px;
+    padding: 10px 28px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .stat .label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .stat .value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .target {
+    font-size: clamp(20px, 6vw, 30px);
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    background: var(--target-bg);
+    border-radius: 14px;
+    padding: 18px 16px;
+    margin-bottom: 16px;
+    word-wrap: break-word;
+    user-select: none;
+    font-family: "SF Mono", "Menlo", "Consolas", monospace;
+    min-height: 3.2em;
+    transition: background 0.2s;
+  }
+  .target span { transition: color 0.1s, background-color 0.1s; border-radius: 3px; }
+  .char-pending { color: var(--pending); }
+  .char-correct { color: var(--good); }
+  .char-wrong { color: var(--bad); background-color: var(--char-wrong-bg); }
+  .char-current { color: var(--ink); background-color: var(--char-current-bg); border-bottom: 2px solid var(--accent); }
+
+  input#typeInput {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    border-radius: 12px;
+    border: 2px solid var(--input-border);
+    outline: none;
+    font-family: inherit;
+    background: var(--input-bg);
+    color: var(--ink);
+    transition: border-color 0.15s, background 0.2s, color 0.2s;
+    -webkit-appearance: none;
+  }
+  input#typeInput:focus { border-color: var(--accent); }
+  input#typeInput.error { border-color: var(--bad); }
+
+  .warning {
+    min-height: 16px;
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--bad);
+    margin-top: 6px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .warning.show { opacity: 1; }
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  button {
+    flex: 1;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: var(--accent);
+    color: white;
+    transition: transform 0.08s, opacity 0.15s;
+  }
+  button:active { transform: scale(0.97); }
+  button.secondary {
+    background: var(--btn-secondary-bg);
+    color: var(--btn-secondary-ink);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .result {
+    display: none;
+    text-align: center;
+    margin-top: 6px;
+    padding: 16px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+  }
+  .result.show { display: block; }
+  .result .big { font-size: 32px; font-weight: 800; margin-bottom: 2px; }
+  .result .small { font-size: 13px; opacity: 0.9; }
+
+
+  .modes {
+    display: flex; justify-content: center; gap: 6px; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .modes .mode-label { font-size: 12px; color: var(--muted); align-self: center; margin-right: 4px; }
+  .modes button {
+    flex: 0 0 auto; padding: 7px 14px; font-size: 13px; border-radius: 999px;
+    background: var(--btn-secondary-bg); color: var(--btn-secondary-ink);
+  }
+  .modes button.active { background: var(--accent); color: #fff; }
+  .modes button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .stats { gap: 10px; flex-wrap: wrap; }
+  .stat { padding: 10px 18px; min-width: 96px; }
+  .stat.time .value { color: var(--accent); }
+
+  /* Word stream: fixed 3-line window, finished lines scroll off the top. */
+  .target {
+    min-height: 0;
+    line-height: 1.6;
+    cursor: text;
+    font-size: clamp(18px, 5vw, 26px);
+  }
+  #words { height: 4.8em; overflow: hidden; }
+  .word { display: inline-block; height: 1.6em; line-height: 1.6; vertical-align: top; margin-right: 0.6em; white-space: nowrap; }
+  .word.current { box-shadow: inset 0 -2px var(--accent); }
+  .word.missed-word .char-pending { color: var(--bad); opacity: 0.55; }
+  .char-extra { color: var(--bad); opacity: 0.7; }
+
+  .result .grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 12px;
+  }
+  @media (min-width: 480px) { .result .grid { grid-template-columns: repeat(4, 1fr); } }
+  .result .cell { background: rgba(255,255,255,0.14); border-radius: 10px; padding: 8px 6px; }
+  .result .cell b { display: block; font-size: 20px; font-variant-numeric: tabular-nums; }
+  .result .cell span { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.85; }
+  .result .small { margin-top: 10px; }
+  .howto { margin-top: 16px; font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+  .howto summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+  .howto ul { margin: 6px 0 0; padding-left: 18px; }
+
+  @media (max-width: 380px) {
+    .card { padding: 18px 14px; }
+  }
+</style>
+</head>
+<body>
+<a href="index.html" class="home-pill" style="position:fixed;top:14px;left:14px;z-index:20;padding:9px 14px;border-radius:999px;background:var(--card,var(--panel,#fff));color:var(--ink,inherit);border:1px solid rgba(127,127,127,0.25);box-shadow:0 4px 14px rgba(15,23,42,0.15);font:600 13px -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;text-decoration:none;">← Games</a>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">🌙</button>
+<div class="wrap">
+  <div class="card">
+    <h1>Typing Activity</h1>
+    <div class="subtitle">Type the words as fast and as accurately as you can</div>
+
+    <div class="modes" id="modes">
+      <span class="mode-label">Time:</span>
+      <button type="button" data-time="15">15s</button>
+      <button type="button" data-time="30" class="active">30s</button>
+      <button type="button" data-time="60">60s</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat time">
+        <div class="label">Time</div>
+        <div class="value" id="statTime">30</div>
+      </div>
+      <div class="stat">
+        <div class="label">WPM</div>
+        <div class="value" id="statWpm">0</div>
+      </div>
+      <div class="stat">
+        <div class="label">Accuracy</div>
+        <div class="value" id="statAcc">100%</div>
+      </div>
+    </div>
+
+    <div class="target" id="target" aria-live="off"><div id="words"></div></div>
+
+    <input
+      id="typeInput"
+      type="text"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      inputmode="text"
+      placeholder="Start typing — the timer begins on your first key…"
+    />
+    <div class="warning" id="warningMsg"></div>
+
+    <div class="buttons">
+      <button id="restartBtn" class="secondary">Restart</button>
+      <button id="focusBtn">Start Typing</button>
+    </div>
+
+    <div class="result" id="result">
+      <div class="big" id="resultBig">🎉 Nice!</div>
+      <div class="grid">
+        <div class="cell"><b id="rWpm">0</b><span>WPM</span></div>
+        <div class="cell"><b id="rAcc">0%</b><span>Accuracy</span></div>
+        <div class="cell"><b id="rRaw">0</b><span>Raw WPM</span></div>
+        <div class="cell"><b id="rChars">0/0</b><span>Correct / Wrong keys</span></div>
+      </div>
+      <div class="small" id="resultSmall"></div>
+    </div>
+
+    <details class="howto">
+      <summary>How are WPM and Accuracy counted?</summary>
+      <ul>
+        <li>Press <b>Space</b> to move to the next word. Pressed Space too early, or spotted a mistake? Press <b>Backspace</b> on an empty box to go back and fix the previous word.</li>
+        <li><b>WPM</b> = letters in words you typed <b>correctly</b> (plus their spaces) ÷ 5, per minute. Wrong words don't count.</li>
+        <li><b>Raw WPM</b> counts every letter you typed, right or wrong.</li>
+        <li><b>Accuracy</b> = correct key presses ÷ all key presses. A mistake still counts even if you fix it with Backspace — so type carefully!</li>
+      </ul>
+    </details>
+  </div>
+</div>
+
+<script>
+(function () {
+  // ===================================================================
+  // PHRASE BANK — edit freely. One phrase per line, lowercase, no
+  // punctuation. Phrases are shuffled and joined into one long stream,
+  // and none repeats until every phrase has been used.
+  // ===================================================================
+  const PHRASES = [
+    "the quick brown fox jumps over the lazy dog",
+    "practice makes progress every single day",
+    "a good friend is always kind and fair",
+    "the sun rises in the east and sets in the west",
+    "read a book before you go to sleep",
+    "my computer has a mouse and a keyboard",
+    "save your work so you do not lose it",
+    "the teacher smiled at the happy class",
+    "we plant trees to help keep the earth green",
+    "always wash your hands before you eat",
+    "the cat sat on the warm soft mat",
+    "honesty is the best thing to have",
+    "a small step each day leads to big goals",
+    "keep your eyes on the screen and your hands on the keys",
+    "the rain falls softly on the tin roof",
+    "my family eats dinner together every night",
+    "rice and fish are good for lunch",
+    "the stars shine bright in the night sky",
+    "birds sing in the trees near our school",
+    "type with all ten fingers not just two",
+    "the home row keys are where your fingers rest",
+    "respect your elders and help your friends",
+    "clean up your desk before you leave the room",
+    "the ocean is deep and full of fish",
+    "a kind word can make someone smile",
+    "learning new things makes your brain grow",
+    "the red ball rolled down the green hill",
+    "drink water and eat fruits to stay healthy",
+    "the library is a quiet place to read",
+    "work hard and never give up on your dreams",
+    "mount mayon is a volcano with a perfect cone",
+    "the whale shark swims slowly in the sea",
+    "we say thank you when someone helps us",
+    "click the file menu to open a new document",
+    "a mouse helps you point and click on the screen",
+    "the monitor shows us pictures and words",
+    "do your homework before you play games",
+    "the farmer wakes up early to feed the pigs",
+    "sharing is caring so share your snacks",
+    "listen well when your teacher is talking",
+    "the bright moon lights up the dark road",
+    "count to ten when you feel angry",
+    "jeepneys and tricycles fill the busy street",
+    "the fish swam fast to hide from the shark",
+    "a clean room is a happy room",
+    "every mistake is a chance to learn",
+    "the wind blew the kite high into the sky",
+    "use the space bar to put a gap between words",
+    "the dog ran to the gate to greet us",
+    "our school is a place of love for learning"
+  ];
+
+  const DEFAULT_SECONDS = 30;
+
+  const wordsEl = document.getElementById('words');
+  const targetEl = document.getElementById('target');
+  const inputEl = document.getElementById('typeInput');
+  const statTime = document.getElementById('statTime');
+  const statWpm = document.getElementById('statWpm');
+  const statAcc = document.getElementById('statAcc');
+  const restartBtn = document.getElementById('restartBtn');
+  const focusBtn = document.getElementById('focusBtn');
+  const modesEl = document.getElementById('modes');
+  const resultEl = document.getElementById('result');
+  const resultBig = document.getElementById('resultBig');
+  const resultSmall = document.getElementById('resultSmall');
+  const warningMsg = document.getElementById('warningMsg');
+
+  let testSeconds = DEFAULT_SECONDS;
+  let words = [];          // target words (grows as needed)
+  let typedWords = [];     // what the student submitted for each finished word
+  let wordIndex = 0;       // current word
+  let firstVisible = 0;    // first word shown (older lines scroll away)
+  let phraseBag = [];
+
+  // Monkeytype-style keypress counters: every character key pressed counts
+  // once, at the moment it is pressed. Backspace is never counted, so a
+  // mistake you fix still stays in the "wrong" pile.
+  let correctKeys = 0;
+  let wrongKeys = 0;
+
+  let startTime = null;
+  let finished = false;
+  let timerHandle = null;
+  let lastValue = '';
+  let lastAcceptedTime = 0;
+  let warnTimer = null;
+
+  function showWarning(text) {
+    warningMsg.textContent = text;
+    warningMsg.classList.add('show');
+    clearTimeout(warnTimer);
+    warnTimer = setTimeout(() => warningMsg.classList.remove('show'), 1800);
+  }
+
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function ensureWords(minCount) {
+    while (words.length < minCount) {
+      if (phraseBag.length === 0) phraseBag = shuffle(PHRASES.slice());
+      words.push(...phraseBag.pop().trim().split(/\s+/));
+    }
+  }
+
+  function esc(ch) {
+    return ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch === '&' ? '&amp;' : ch;
+  }
+
+  function wordHTML(target, typed, state) {
+    // state: 'done' | 'current' | 'pending'
+    let html = '';
+    const len = Math.max(target.length, typed.length);
+    for (let i = 0; i < len; i++) {
+      if (i >= target.length) {
+        html += `<span class="char-extra">${esc(typed[i])}</span>`;
+        continue;
+      }
+      let cls = 'char-pending';
+      if (i < typed.length) cls = typed[i] === target[i] ? 'char-correct' : 'char-wrong';
+      else if (state === 'current' && i === typed.length) cls = 'char-current';
+      html += `<span class="${cls}">${esc(target[i])}</span>`;
+    }
+    let wcls = 'word';
+    if (state === 'current') wcls += ' current';
+    if (state === 'done' && typed !== target) wcls += ' missed-word';
+    return `<span class="${wcls}">${html}</span>`;
+  }
+
+  function render() {
+    ensureWords(wordIndex + 40);
+    let html = '';
+    const end = Math.min(words.length, wordIndex + 40);
+    for (let i = firstVisible; i < end; i++) {
+      if (i < wordIndex) html += wordHTML(words[i], typedWords[i] || '', 'done');
+      else if (i === wordIndex) html += wordHTML(words[i], inputEl.value, 'current');
+      else html += wordHTML(words[i], '', 'pending');
+    }
+    wordsEl.innerHTML = html;
+
+    // Keep the current word on the 2nd line: once it wraps to a 3rd line,
+    // drop the top line's words and redraw.
+    const nodes = wordsEl.children;
+    const cur = nodes[wordIndex - firstVisible];
+    if (!cur || !nodes[0]) return;
+    const firstTop = nodes[0].offsetTop;
+    const lineH = cur.offsetHeight || 1;
+    if (cur.offsetTop - firstTop >= lineH * 1.5) {
+      let k = 0;
+      while (k < nodes.length && nodes[k].offsetTop === firstTop) k++;
+      firstVisible += k;
+      render();
+    }
+  }
+
+  // ----- Stats (same formulas as Monkeytype) -----
+  function correctWordChars(includePartial) {
+    // Characters of correctly typed words + the space after each.
+    let chars = 0;
+    for (let i = 0; i < wordIndex; i++) {
+      if (typedWords[i] === words[i]) chars += words[i].length + 1;
+    }
+    // When time runs out mid-word, count the letters typed so far in the
+    // last word if they are all correct (Monkeytype does the same).
+    if (includePartial) {
+      const t = inputEl.value;
+      if (t.length && words[wordIndex].startsWith(t)) chars += t.length;
+    }
+    return chars;
+  }
+
+  function allTypedChars() {
+    let chars = 0;
+    for (let i = 0; i < wordIndex; i++) chars += (typedWords[i] || '').length + 1;
+    return chars + inputEl.value.length;
+  }
+
+  function elapsedSec() {
+    if (!startTime) return 0;
+    return Math.min((Date.now() - startTime) / 1000, testSeconds);
+  }
+
+  function wpmFrom(chars, sec) {
+    if (sec <= 0) return 0;
+    return (chars / 5) / (sec / 60);
+  }
+
+  function accuracy() {
+    const total = correctKeys + wrongKeys;
+    return total === 0 ? 100 : (correctKeys / total) * 100;
+  }
+
+  function updateLiveStats() {
+    if (!startTime || finished) return;
+    const sec = elapsedSec();
+    const left = Math.max(0, Math.ceil(testSeconds - sec));
+    statTime.textContent = left;
+    // Wait 2 seconds before showing live WPM so it doesn't spike at the start.
+    statWpm.textContent = sec < 2 ? '–' : Math.round(wpmFrom(correctWordChars(true), sec));
+    statAcc.textContent = Math.floor(accuracy()) + '%';
+    if (sec >= testSeconds) finish();
+  }
+
+  function finish() {
+    if (finished) return;
+    finished = true;
+    clearInterval(timerHandle);
+    const sec = testSeconds;
+    const wpm = wpmFrom(correctWordChars(true), sec);
+    const raw = wpmFrom(allTypedChars(), sec);
+    const acc = accuracy();
+
+    statTime.textContent = '0';
+    statWpm.textContent = Math.round(wpm);
+    statAcc.textContent = Math.floor(acc) + '%';
+
+    inputEl.blur();
+    inputEl.disabled = true;
+    setModesDisabled(false);
+
+    let msg = '🎉 Nice work!';
+    if (wpm >= 40) msg = '🏆 Blazing fast!';
+    else if (wpm >= 25) msg = '⚡ Great speed!';
+    else if (wpm >= 15) msg = '👍 Good job!';
+
+    resultBig.textContent = msg;
+    document.getElementById('rWpm').textContent = Math.round(wpm);
+    document.getElementById('rAcc').textContent = Math.floor(acc) + '%';
+    document.getElementById('rRaw').textContent = Math.round(raw);
+    document.getElementById('rChars').textContent = correctKeys + '/' + wrongKeys;
+    const doneWords = typedWords.filter((t, i) => t === words[i]).length;
+    resultSmall.textContent = `${testSeconds}-second test · ${doneWords} correct word${doneWords === 1 ? '' : 's'}` +
+      (acc < 90 ? ' · Tip: slow down a little to raise your accuracy.' : '');
+    resultEl.classList.add('show');
+  }
+
+  function startTimer() {
+    startTime = Date.now();
+    setModesDisabled(true);
+    timerHandle = setInterval(updateLiveStats, 100);
+  }
+
+  function isBulkInsert(e, raw) {
+    // Reject non-keystroke insertions (word suggestions, autofill,
+    // dictation): they add several characters at once, are labelled with a
+    // special inputType, or land impossibly fast after the last key.
+    const now = Date.now();
+    const gapMs = lastAcceptedTime ? now - lastAcceptedTime : Infinity;
+    const delta = raw.length - lastValue.length;
+    const suspiciousType = e.inputType && /replacement|dictation|transliteration|autocomplete/i.test(e.inputType);
+    const suspiciouslyFast = delta === 1 && gapMs < 15;
+    return delta > 1 || suspiciousType || suspiciouslyFast;
+  }
+
+  function handleInput(e) {
+    if (finished) return;
+    const raw = inputEl.value;
+
+    if (isBulkInsert(e, raw)) {
+      inputEl.value = lastValue;
+      showWarning('Please type each letter — no autofill or word suggestions.');
+      return;
+    }
+    // Only real letter insertions reset the timing check — a fast
+    // Backspace-then-letter is normal typing, not autofill.
+    if (raw.length > lastValue.length) lastAcceptedTime = Date.now();
+
+    const added = raw.length > lastValue.length ? raw.slice(-1) : null;
+
+    if (added !== null && !startTime) {
+      if (added === ' ') { inputEl.value = lastValue; return; } // ignore a leading space
+      startTimer();
+    }
+
+    if (added === ' ') {
+      const typed = raw.slice(0, -1);
+      if (typed.length === 0) {           // space on an empty word: ignore
+        inputEl.value = '';
+        lastValue = '';
+        return;
+      }
+      // The space itself is a correct key only if the word was typed fully
+      // and correctly; otherwise it counts as a mistake.
+      if (typed === words[wordIndex]) correctKeys++; else wrongKeys++;
+      typedWords[wordIndex] = typed;
+      wordIndex++;
+      inputEl.value = '';
+      lastValue = '';
+      render();
+      updateLiveStats();
+      return;
+    }
+
+    if (added !== null) {
+      const pos = raw.length - 1;
+      const target = words[wordIndex];
+      const ok = pos < target.length && raw[pos] === target[pos];
+      if (ok) correctKeys++;
+      else {
+        wrongKeys++;
+        inputEl.classList.add('error');
+        setTimeout(() => inputEl.classList.remove('error'), 150);
+      }
+      // Don't let a word run away with extra letters.
+      if (raw.length > target.length + 8) {
+        inputEl.value = raw.slice(0, target.length + 8);
+      }
+    }
+
+    lastValue = inputEl.value;
+    render();
+    updateLiveStats();
+  }
+
+  function goBackOneWord() {
+    wordIndex--;
+    const prev = typedWords[wordIndex] || '';
+    typedWords.length = wordIndex;          // un-submit that word
+    inputEl.value = prev;
+    lastValue = prev;
+    inputEl.setSelectionRange(prev.length, prev.length);
+    // If the word has already scrolled off the top, rewind the view;
+    // render() scrolls forward again so it sits on the first/second line.
+    if (wordIndex < firstVisible) firstVisible = 0;
+    render();
+    updateLiveStats();
+  }
+
+  function setModesDisabled(d) {
+    modesEl.querySelectorAll('button').forEach(b => { b.disabled = d; });
+  }
+
+  function reset() {
+    finished = false;
+    startTime = null;
+    clearInterval(timerHandle);
+    words = [];
+    typedWords = [];
+    wordIndex = 0;
+    firstVisible = 0;
+    phraseBag = [];
+    correctKeys = 0;
+    wrongKeys = 0;
+    lastValue = '';
+    lastAcceptedTime = 0;
+    warningMsg.classList.remove('show');
+    inputEl.disabled = false;
+    inputEl.value = '';
+    statTime.textContent = testSeconds;
+    statWpm.textContent = '0';
+    statAcc.textContent = '100%';
+    resultEl.classList.remove('show');
+    setModesDisabled(false);
+    render();
+    inputEl.focus();
+  }
+
+  modesEl.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-time]');
+    if (!b || b.disabled) return;
+    testSeconds = parseInt(b.dataset.time, 10);
+    modesEl.querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b));
+    reset();
+  });
+
+  inputEl.addEventListener('input', handleInput);
+  inputEl.addEventListener('paste', (e) => e.preventDefault());
+  inputEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); return; }
+    // Backspace on an empty box jumps back into the previous word so a
+    // misclicked Space or a typo can still be fixed. The Space that was
+    // pressed stays counted for accuracy (Backspace is never counted).
+    if (e.key === 'Backspace' && !finished && inputEl.value === '' && wordIndex > 0) {
+      e.preventDefault();
+      goBackOneWord();
+    }
+  });
+
+  restartBtn.addEventListener('click', reset);
+  focusBtn.addEventListener('click', () => inputEl.focus());
+  targetEl.addEventListener('click', () => inputEl.focus());
+  window.addEventListener('resize', () => { if (!finished) render(); });
+
+  // --- Light / dark theme toggle ---
+  const THEME_KEY = 'typingGameTheme';
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+
+  function effectiveTheme() {
+    const explicit = root.getAttribute('data-theme');
+    if (explicit) return explicit;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function refreshToggleIcon() {
+    const dark = effectiveTheme() === 'dark';
+    themeToggle.textContent = dark ? '☀️' : '🌙';
+    themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    refreshToggleIcon();
+    try { localStorage.setItem(THEME_KEY, theme); } catch (err) { /* ignore */ }
+  }
+
+  (function initTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch (err) { /* ignore */ }
+    if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+    refreshToggleIcon();
+  })();
+
+  themeToggle.addEventListener('click', () => {
+    setTheme(effectiveTheme() === 'dark' ? 'light' : 'dark');
+  });
+
+  reset();
+  inputEl.blur();
+})();
+</script>
+</body>
+</html>
