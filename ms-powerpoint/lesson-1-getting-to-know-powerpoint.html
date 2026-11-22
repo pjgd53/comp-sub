@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PowerPoint Lesson 1: Getting to Know PowerPoint</title>
+<style>
+  :root {
+    --bg1: #eef2ff; --bg2: #f8fafc; --card: #ffffff;
+    --card-border: rgba(15,23,42,0.06); --ink: #1e293b; --muted: #64748b;
+    --accent: #6366f1; --accent-ink: #ffffff;
+    --tip-bg: #fef9c3; --tip-border: #eab308; --tip-ink: #713f12;
+    --recap-bg: #ecfdf5; --recap-border: #10b981;
+    --shadow: rgba(15,23,42,0.15); --btn-secondary-bg: #e2e8f0; --btn-secondary-ink: #1e293b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg1: #1e1b4b; --bg2: #0f172a; --card: #1a2036;
+      --card-border: rgba(255,255,255,0.08); --ink: #e7ecff; --muted: #94a3b8;
+      --accent: #818cf8; --accent-ink: #0f172a;
+      --tip-bg: #3f3311; --tip-border: #eab308; --tip-ink: #fef08a;
+      --recap-bg: #082f22; --recap-border: #34d399;
+      --shadow: rgba(0,0,0,0.5); --btn-secondary-bg: #2a3252; --btn-secondary-ink: #e7ecff;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg1: #1e1b4b; --bg2: #0f172a; --card: #1a2036;
+    --card-border: rgba(255,255,255,0.08); --ink: #e7ecff; --muted: #94a3b8;
+    --accent: #818cf8; --accent-ink: #0f172a;
+    --tip-bg: #3f3311; --tip-border: #eab308; --tip-ink: #fef08a;
+    --recap-bg: #082f22; --recap-border: #34d399;
+    --shadow: rgba(0,0,0,0.5); --btn-secondary-bg: #2a3252; --btn-secondary-ink: #e7ecff;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { height: 100%; }
+  body { margin: 0; overscroll-behavior: none; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(180deg, var(--bg1), var(--bg2));
+    min-height: 100dvh;
+    display: flex; justify-content: center;
+    padding: 16px; color: var(--ink);
+    transition: background 0.2s, color 0.2s;
+  }
+  .theme-toggle {
+    position: fixed; top: 14px; right: 14px; width: 42px; height: 42px;
+    border-radius: 50%; background: var(--card); border: 1px solid var(--card-border);
+    box-shadow: 0 4px 14px var(--shadow); font-size: 19px; display: flex;
+    align-items: center; justify-content: center; cursor: pointer; z-index: 20; padding: 0;
+    transition: background 0.2s, transform 0.08s;
+  }
+  .theme-toggle:active { transform: scale(0.92); }
+  .wrap { width: 100%; max-width: 720px; padding-top: 8px; }
+  .card {
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 20px;
+    padding: 26px 24px; box-shadow: 0 20px 60px var(--shadow);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .lesson-nav-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 13.5px; }
+  .lesson-nav-top a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .lesson-nav-top a:hover { text-decoration: underline; }
+  .lesson-badge { background: var(--bg1); color: var(--accent); font-weight: 700; font-size: 11.5px; padding: 4px 10px; border-radius: 999px; letter-spacing: 0.02em; }
+  h1 { font-size: clamp(22px, 5vw, 28px); margin: 0 0 4px; }
+  .subtitle { color: var(--muted); font-size: 14.5px; margin-bottom: 22px; }
+  h2.section-title { font-size: 17px; margin: 28px 0 10px; display: flex; align-items: center; gap: 8px; }
+  p { line-height: 1.65; font-size: 15px; }
+  .tip { background: var(--tip-bg); border-left: 4px solid var(--tip-border); color: var(--tip-ink); border-radius: 8px; padding: 12px 14px; font-size: 14px; line-height: 1.55; margin: 16px 0; }
+  .tip b { display: block; margin-bottom: 3px; }
+  .recap { background: var(--recap-bg); border: 1px solid var(--recap-border); border-radius: 14px; padding: 16px 18px; margin-top: 30px; }
+  .recap h2 { margin: 0 0 10px; font-size: 16px; }
+  .recap ul { margin: 0; padding-left: 20px; font-size: 14.5px; line-height: 1.75; }
+  .lesson-nav-bottom { display: flex; gap: 10px; margin-top: 24px; }
+  .nav-btn { flex: 1; text-align: center; padding: 13px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 14.5px; background: var(--btn-secondary-bg); color: var(--btn-secondary-ink); transition: transform 0.08s; }
+  .nav-btn:active { transform: scale(0.97); }
+  .nav-btn.primary { background: var(--accent); color: var(--accent-ink); }
+
+  .word-mockup { border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,0.12); box-shadow: 0 10px 30px var(--shadow); margin: 14px 0; background: #fff; }
+  .wm-titlebar { background: #2b579a; color: #fff; font-size: 12px; padding: 7px 10px; display: flex; align-items: center; justify-content: space-between; }
+  .wm-titlebar .wm-dots span { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-left: 6px; background: rgba(255,255,255,0.55); }
+  .wm-tabs { background: #f3f2f1; display: flex; gap: 2px; padding: 0 8px; font-size: 11.5px; color: #444; border-bottom: 1px solid #d9d9d9; overflow-x: auto; }
+  .wm-tabs span { padding: 7px 10px; white-space: nowrap; }
+  .wm-tabs span.active { background: #fff; color: #2b579a; font-weight: 700; border-radius: 4px 4px 0 0; }
+  .wm-ribbon { background: #fff; border-bottom: 1px solid #d9d9d9; padding: 8px 10px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .wm-group { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 8px; border-right: 1px solid #e5e5e5; }
+  .wm-group:last-child { border-right: none; }
+  .wm-group .wm-icons { display: flex; gap: 4px; }
+  .wm-btn { min-width: 26px; height: 22px; border-radius: 3px; background: #f3f2f1; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #333; border: 1px solid transparent; padding: 0 4px; }
+  .wm-btn.highlight { background: #cfe0f7; border-color: #2b579a; color: #2b579a; box-shadow: 0 0 0 2px rgba(43,87,154,0.25); }
+  .wm-group .wm-label { font-size: 9px; color: #666; }
+  .wm-doc { background: #fff; min-height: 150px; padding: 20px 26px; font-size: 14px; color: #222; line-height: 1.6; position: relative; }
+  .wm-statusbar { background: #2b579a; color: #fff; font-size: 10.5px; padding: 4px 10px; display: flex; justify-content: space-between; }
+  .wm-caption { font-size: 12.5px; color: var(--muted); text-align: center; margin-top: 6px; }
+
+  .pic-placeholder {
+    display: inline-block; width: 100px; height: 76px; border-radius: 6px;
+    background: linear-gradient(135deg, #bfe3ff, #8ec9f2);
+    position: relative; vertical-align: middle; margin: 0 6px;
+    border: 2px solid #2b579a;
+  }
+  .pic-placeholder::before { content: "🖼️"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 26px; }
+  .pic-placeholder .handle {
+    position: absolute; width: 8px; height: 8px; background: #fff; border: 1.5px solid #2b579a; border-radius: 1px;
+  }
+  .pic-placeholder .handle.br { right: -4px; bottom: -4px; }
+  .pic-placeholder .handle.tl { left: -4px; top: -4px; }
+  .pic-placeholder .handle.tr { right: -4px; top: -4px; }
+  .pic-placeholder .handle.bl { left: -4px; bottom: -4px; }
+
+  .dialog-mockup { border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,0.12); box-shadow: 0 10px 30px var(--shadow); margin: 14px 0; background: #fff; max-width: 380px; }
+  .dialog-titlebar { background: #f3f2f1; color: #333; font-size: 12px; font-weight: 700; padding: 8px 12px; border-bottom: 1px solid #d9d9d9; }
+  .dialog-body { padding: 16px; font-size: 13px; color: #333; }
+  .dialog-row { margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+  .dialog-row label { font-size: 12px; color: #444; }
+  .dialog-input { border: 1px solid #c7c7c7; border-radius: 4px; padding: 6px 9px; font-size: 12.5px; background: #fff; color: #222; width: 110px; }
+  .dialog-buttons { display: flex; gap: 8px; justify-content: flex-end; margin-top: 10px; }
+  .dialog-btn { padding: 7px 16px; border-radius: 4px; font-size: 12.5px; font-weight: 600; border: 1px solid #c7c7c7; background: #f3f2f1; color: #333; }
+  .dialog-btn.primary { background: #2b579a; border-color: #2b579a; color: #fff; }
+
+  @media (max-width: 380px) {
+    .card { padding: 18px 14px; }
+    .wm-doc { padding: 14px 16px; }
+  }
+
+  /* --- extra mockup pieces for lessons 6-10 --- */
+  .tip b { display: inline; margin: 0; }
+  .tip b.tip-title { display: block; margin-bottom: 3px; }
+  .kbd { display: inline-block; padding: 1px 7px; border-radius: 5px; border: 1px solid var(--card-border); border-bottom-width: 3px; background: var(--bg1); font: 700 12.5px "Consolas", "Menlo", monospace; color: var(--ink); white-space: nowrap; }
+  .shortcut-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 14px 0; }
+  .shortcut { background: var(--bg1); border-radius: 12px; padding: 12px; text-align: center; }
+  .shortcut .keys { font-size: 15px; margin-bottom: 6px; }
+  .shortcut .what { font-size: 13px; color: var(--muted); }
+  .shortcut .what b { color: var(--ink); }
+  .steps { padding-left: 22px; margin: 10px 0; }
+  .steps li { line-height: 1.65; font-size: 15px; margin-bottom: 4px; }
+  .sel { background: #b4d3f7; }
+  .spell { text-decoration: underline wavy #e11d48; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+  .gram { text-decoration: underline double #2563eb; text-underline-offset: 3px; }
+  .ctx-menu { display: inline-block; background: #fff; border: 1px solid #c7c7c7; border-radius: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.18); font-size: 12.5px; color: #222; min-width: 150px; overflow: hidden; margin-top: 6px; }
+  .ctx-menu div { padding: 6px 12px; }
+  .ctx-menu div.sugg { font-weight: 700; }
+  .ctx-menu div.hl { background: #cfe0f7; }
+  .ctx-menu div.sep { padding: 0; border-top: 1px solid #e5e5e5; }
+  .wm-table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  .wm-table td, .wm-table th { border: 1px solid #8aa4c8; padding: 6px 8px; text-align: left; }
+  .wm-table th { background: #2b579a; color: #fff; }
+  .wm-table td.cursor-cell { background: #eef4fc; box-shadow: inset 0 0 0 2px #2b579a; }
+  .grid-pick { display: inline-grid; grid-template-columns: repeat(6, 14px); gap: 3px; padding: 8px; background: #fff; border: 1px solid #c7c7c7; border-radius: 6px; }
+  .grid-pick span { width: 14px; height: 14px; border: 1px solid #b0b0b0; background: #fff; }
+  .grid-pick span.on { background: #f6c38b; border-color: #d97706; }
+  .pages { display: flex; gap: 22px; justify-content: center; align-items: flex-end; flex-wrap: wrap; margin: 14px 0; }
+  .page { background: #fff; border: 1px solid #c7c7c7; box-shadow: 0 6px 16px var(--shadow); position: relative; color: #555; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center; }
+  .page.portrait { width: 96px; height: 128px; }
+  .page.landscape { width: 128px; height: 96px; }
+  .page .margin-box { position: absolute; border: 1px dashed #93c5fd; }
+  .page-label { text-align: center; font-size: 12.5px; color: var(--muted); margin-top: 6px; font-weight: 600; }
+  .bordered-page { width: 210px; height: 150px; background: #fff7e6; border: 1px solid #c7c7c7; box-shadow: 0 6px 16px var(--shadow); padding: 10px; margin: 14px auto; }
+  .bordered-page .inner { border: 5px double #2b579a; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #2b579a; font-weight: 800; font-size: 15px; text-align: center; gap: 4px; }
+  .bordered-page .inner small { font-weight: 500; color: #555; font-size: 11px; }
+  .file-list { font-size: 12.5px; color: #222; }
+  .file-list div { padding: 6px 8px; border-radius: 4px; display: flex; gap: 8px; align-items: center; }
+  .file-list div.hl { background: #cfe0f7; }
+  .file-list div span.date { margin-left: auto; color: #777; font-size: 11.5px; }
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  @media (max-width: 520px) { .compare { grid-template-columns: 1fr; } }
+  .compare > div { background: var(--bg1); border-radius: 12px; padding: 12px 14px; font-size: 14px; line-height: 1.55; }
+  .compare h3 { margin: 0 0 6px; font-size: 15px; }
+
+  /* --- PowerPoint mockups --- */
+  .pp { border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,0.12); box-shadow: 0 10px 30px var(--shadow); margin: 14px 0; background: #fff; color: #222; }
+  .pp-title { background: #c43e1c; color: #fff; font-size: 12px; padding: 7px 10px; display: flex; justify-content: space-between; }
+  .pp-title .dots span { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-left: 6px; background: rgba(255,255,255,0.55); }
+  .pp-tabs { background: #f3f2f1; display: flex; gap: 2px; padding: 0 8px; font-size: 11.5px; color: #444; border-bottom: 1px solid #d9d9d9; overflow-x: auto; }
+  .pp-tabs span { padding: 7px 9px; white-space: nowrap; }
+  .pp-tabs span.active { background: #fff; color: #c43e1c; font-weight: 700; border-radius: 4px 4px 0 0; }
+  .pp-ribbon { background: #fff; border-bottom: 1px solid #d9d9d9; padding: 8px 10px; display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end; }
+  .pp-btn { min-width: 46px; padding: 5px 7px; border-radius: 4px; background: #f3f2f1; font-size: 11px; text-align: center; color: #333; border: 1px solid transparent; line-height: 1.3; }
+  .pp-btn i { display: block; font-style: normal; font-size: 17px; }
+  .pp-btn.hl { background: #fde3d9; border-color: #c43e1c; color: #c43e1c; box-shadow: 0 0 0 2px rgba(196,62,28,0.2); font-weight: 700; }
+  .pp-sep { width: 1px; align-self: stretch; background: #e5e5e5; }
+  .pp-body { display: flex; background: #e9e9e9; min-height: 190px; }
+  .pp-thumbs { width: 78px; padding: 8px 6px; display: flex; flex-direction: column; gap: 8px; background: #f3f2f1; border-right: 1px solid #d9d9d9; flex-shrink: 0; }
+  .pp-thumb { position: relative; font-size: 9px; color: #666; padding-left: 12px; }
+  .pp-thumb b { position: absolute; left: 0; top: 2px; font-weight: 600; }
+  .pp-thumb div { aspect-ratio: 16/9; background: #fff; border: 1px solid #c7c7c7; font-size: 7px; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; color: #333; }
+  .pp-thumb.sel div { border: 2px solid #c43e1c; }
+  .pp-thumb .star { position: absolute; left: 0; top: 14px; font-size: 9px; color: #c43e1c; }
+  .pp-stage { flex: 1; padding: 14px; display: flex; align-items: center; justify-content: center; min-width: 0; }
+  .slide { width: 100%; max-width: 440px; aspect-ratio: 16/9; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.18); position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 12px; text-align: center; }
+  .ph { border: 1.5px dashed #9a9a9a; border-radius: 3px; color: #777; padding: 8px 12px; width: 86%; font-size: 13px; }
+  .ph.big { font-size: 20px; color: #444; }
+  .slide h3 { margin: 0; font-size: clamp(16px, 4vw, 24px); color: #c43e1c; }
+  .slide p { margin: 0; font-size: 13px; color: #444; line-height: 1.4; }
+  .pp-notes { background: #fff; border-top: 1px solid #d9d9d9; font-size: 11px; color: #888; padding: 6px 10px; }
+  .pp-status { background: #f3f2f1; border-top: 1px solid #d9d9d9; font-size: 10.5px; color: #444; padding: 4px 10px; display: flex; justify-content: space-between; }
+  .callouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin: 14px 0; }
+  .callouts > div { background: var(--bg1); border-radius: 12px; padding: 11px 13px; font-size: 13.5px; line-height: 1.5; }
+  .callouts b.n { display: inline-flex; width: 20px; height: 20px; border-radius: 50%; background: #c43e1c; color: #fff; font-size: 11px; align-items: center; justify-content: center; margin-right: 6px; }
+  .layouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 14px 0; }
+  .layouts .lay { text-align: center; font-size: 12.5px; color: var(--muted); font-weight: 600; }
+  .layouts .lay > div { aspect-ratio: 16/9; background: #fff; border: 1px solid #c7c7c7; border-radius: 4px; margin-bottom: 5px; padding: 8px; display: flex; flex-direction: column; gap: 5px; justify-content: center; }
+  .layouts .bar { background: #d6d6d6; border-radius: 2px; height: 9px; }
+  .layouts .box { background: #ececec; border: 1px dashed #b5b5b5; border-radius: 2px; flex: 1; }
+  .pic { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 120px; height: 80px; border: 2px solid #c43e1c; background: linear-gradient(135deg, #bde3ff, #ffe7a3); font-size: 38px; }
+  .pic .h { position: absolute; width: 8px; height: 8px; background: #fff; border: 1.5px solid #c43e1c; }
+  .pic .tl { left: -5px; top: -5px; } .pic .tr { right: -5px; top: -5px; } .pic .bl { left: -5px; bottom: -5px; } .pic .br { right: -5px; bottom: -5px; }
+  .pic .rot { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-size: 13px; color: #c43e1c; }
+  .effects { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 14px 0; }
+  .effects > div { border-radius: 12px; padding: 11px 13px; font-size: 13.5px; line-height: 1.5; border-left: 5px solid; background: var(--bg1); }
+  .effects .g { border-color: #16a34a; } .effects .y { border-color: #eab308; } .effects .r { border-color: #dc2626; } .effects .b { border-color: #2563eb; }
+
+  /* --- interactive demos --- */
+  .demo { background: var(--bg1); border-radius: 14px; padding: 14px; margin: 16px 0; }
+  .demo-title { font-weight: 700; font-size: 14px; margin-bottom: 10px; }
+  .demo-stage { position: relative; width: 100%; max-width: 440px; margin: 0 auto; aspect-ratio: 16/9; background: #222; border-radius: 6px; overflow: hidden; box-shadow: 0 6px 18px var(--shadow); }
+  .dslide { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: #fff; font-weight: 800; font-size: clamp(18px, 5vw, 28px); text-align: center; }
+  .dslide small { font-size: 13px; font-weight: 500; opacity: 0.9; }
+  .dslide.s1 { background: linear-gradient(135deg, #c43e1c, #f59e0b); }
+  .dslide.s2 { background: linear-gradient(135deg, #2563eb, #7c3aed); }
+  .demo-btns { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+  .demo-btns button { border: none; border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 700; cursor: pointer; background: var(--btn-secondary-bg); color: var(--btn-secondary-ink); }
+  .demo-btns button.on { background: #c43e1c; color: #fff; }
+  .demo-note { text-align: center; font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+  .anim-stage { background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+  .anim-stage .atitle { color: #c43e1c; font-weight: 800; font-size: clamp(16px, 4.5vw, 24px); }
+  .anim-stage .aobj { font-size: 44px; }
+  .anim-stage .anum { position: absolute; top: 8px; left: 8px; font-size: 11px; background: #f3f2f1; color: #444; padding: 2px 6px; border-radius: 4px; }
+  @keyframes a-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes a-fly { from { transform: translateY(160%); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes a-zoom { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes a-bounce { 0% { transform: translateY(-200%); opacity: 0; } 60% { transform: translateY(0); opacity: 1; } 75% { transform: translateY(-25%); } 90% { transform: translateY(0); } 95% { transform: translateY(-8%); } 100% { transform: translateY(0); } }
+  @keyframes a-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.35); } }
+  @keyframes a-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+  @keyframes a-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(-140%); } }
+  @keyframes a-path { 0% { transform: translateX(-120px); } 50% { transform: translateX(120px) translateY(-20px); } 100% { transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce) { .demo-stage * { animation-duration: 0.01s !important; transition-duration: 0.01s !important; } }
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">🌙</button>
+<div class="wrap">
+  <div class="card">
+    <div class="lesson-nav-top">
+      <a href="index.html">← All Lessons</a>
+      <span class="lesson-badge">Lesson 1 of 6</span>
+    </div>
+
+    <h1>📊 Getting to Know PowerPoint</h1>
+    <div class="subtitle">Meet the program that turns your ideas into a slideshow.</div>
+
+    <h2 class="section-title">🤔 What Is PowerPoint?</h2>
+    <p><b>Microsoft PowerPoint</b> is a program for making <b>presentations</b>. A presentation is a set of pages called <b>slides</b> that you show one at a time — like a digital flip chart. Teachers use them for lessons, and you can use them for reports, book reviews, and class projects!</p>
+    <p>A Word document is meant to be <b>read</b>. A PowerPoint presentation is meant to be <b>shown</b> — so slides use big titles, short sentences, and lots of pictures.</p>
+
+    <h2 class="section-title">🖥️ The PowerPoint Screen</h2>
+    <div class="pp">
+      <div class="pp-title"><span>📊 Presentation1 - PowerPoint</span><span class="dots"><span></span><span></span><span></span></span></div>
+      <div class="pp-tabs"><span>File</span><span class="active">Home</span><span>Insert</span><span>Design</span><span>Transitions</span><span>Animations</span><span>Slide Show</span><span>View</span></div>
+      <div class="pp-ribbon"><div class="pp-btn"><i>➕</i>New Slide</div><div class="pp-btn"><i>▤</i>Layout</div><div class="pp-sep"></div><div class="pp-btn"><i>B</i>Bold</div><div class="pp-btn"><i>A</i>Font</div></div>
+      <div class="pp-body"><div class="pp-thumbs"><div class="pp-thumb sel"><b>1</b><div>Title</div></div><div class="pp-thumb"><b>2</b><div></div></div><div class="pp-thumb"><b>3</b><div></div></div></div><div class="pp-stage"><div class="slide"><div class="ph big">Click to add title</div><div class="ph">Click to add subtitle</div></div></div></div>
+      <div class="pp-notes">Click to add notes</div>
+      <div class="pp-status"><span>Slide 1 of 3</span><span>▭ ▦ ▣ &nbsp; − ——●—— + 68%</span></div>
+    </div>
+    <div class="callouts">
+      <div><b class="n">1</b><b>Title Bar</b> — the orange bar at the top. It shows your presentation's name.</div>
+      <div><b class="n">2</b><b>Ribbon</b> — the tabs (Home, Insert, Design, Transitions, Animations…) and their buttons.</div>
+      <div><b class="n">3</b><b>Slides Pane</b> — the small pictures on the left. Each one is a slide. Click one to open it.</div>
+      <div><b class="n">4</b><b>Slide Area</b> — the big white slide in the middle where you type and add pictures.</div>
+      <div><b class="n">5</b><b>Notes</b> — a space under the slide for reminders only <i>you</i> can see while presenting.</div>
+      <div><b class="n">6</b><b>Status Bar</b> — at the bottom. It tells you which slide you're on, like <i>"Slide 1 of 3"</i>.</div>
+    </div>
+
+    <h2 class="section-title">📦 Placeholders</h2>
+    <p>The boxes with dashed borders that say <i>"Click to add title"</i> are called <b>placeholders</b>. Click inside one and start typing — the gray hint words disappear. If you leave a placeholder empty, it won't show when you present.</p>
+
+    <div class="tip">
+      <b class="tip-title">No PowerPoint at Home?</b>
+      You can use a free program that works the same way: <b>Google Slides</b> (<a href="https://slides.google.com" target="_blank" rel="noopener">slides.google.com</a>), <b>WPS Presentation</b> (<a href="https://www.wps.com" target="_blank" rel="noopener">wps.com</a>), or <b>LibreOffice Impress</b> (<a href="https://www.libreoffice.org/download/download/" target="_blank" rel="noopener">libreoffice.org</a>). The buttons may look a little different, but the ideas are the same.
+    </div>
+
+    <div class="tip">
+      <b class="tip-title">Try It!</b>
+      Open PowerPoint and click <b>Blank Presentation</b>. Point to each part of the screen and say its name: Title Bar, Ribbon, Slides Pane, Slide Area, Notes, and Status Bar.
+    </div>
+
+    <div class="recap">
+      <h2>✅ What You Learned</h2>
+      <ul><li>PowerPoint makes <b>presentations</b> — sets of <b>slides</b> shown one at a time.</li><li>The <b>Slides Pane</b> on the left shows all your slides; the <b>Slide Area</b> is where you work.</li><li>Dashed boxes are <b>placeholders</b> — click inside to type.</li><li>The <b>Status Bar</b> shows which slide you are on.</li></ul>
+    </div>
+
+    <div class="lesson-nav-bottom">
+      <a class="nav-btn" href="index.html">← All Lessons</a>
+      <a class="nav-btn primary" href="lesson-2-making-slides.html">Lesson 2: Making Slides →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const THEME_KEY = 'msWordLessonsTheme';
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  function effectiveTheme() {
+    const explicit = root.getAttribute('data-theme');
+    if (explicit) return explicit;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function refreshToggleIcon() {
+    const dark = effectiveTheme() === 'dark';
+    themeToggle.textContent = dark ? '☀️' : '🌙';
+    themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    refreshToggleIcon();
+    try { localStorage.setItem(THEME_KEY, theme); } catch (err) { /* ignore */ }
+  }
+  (function initTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch (err) { /* ignore */ }
+    if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+    refreshToggleIcon();
+  })();
+  themeToggle.addEventListener('click', () => {
+    setTheme(effectiveTheme() === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>

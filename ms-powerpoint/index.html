@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>404 — MS PowerPoint Lessons</title>
+<title>MS PowerPoint Lessons</title>
 <style>
   :root {
     --bg1: #eef2ff; --bg2: #f8fafc; --card: #ffffff;
@@ -23,12 +23,14 @@
     --accent: #818cf8; --shadow: rgba(0,0,0,0.5);
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { height: 100%; }
+  body { margin: 0; overscroll-behavior: none; }
   body {
-    margin: 0; min-height: 100dvh;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background: linear-gradient(180deg, var(--bg1), var(--bg2));
+    min-height: 100dvh;
     display: flex; flex-direction: column; align-items: center;
-    padding: 48px 16px; color: var(--ink);
+    padding: 48px 20px; color: var(--ink);
     transition: background 0.2s, color 0.2s;
   }
   .theme-toggle {
@@ -36,66 +38,122 @@
     border-radius: 50%; background: var(--card); border: 1px solid var(--card-border);
     box-shadow: 0 4px 14px var(--shadow); font-size: 19px; display: flex;
     align-items: center; justify-content: center; cursor: pointer; z-index: 20; padding: 0;
+    transition: background 0.2s, transform 0.08s;
   }
   .theme-toggle:active { transform: scale(0.92); }
-
-  body { justify-content: center; }
-  .box {
-    width: 100%; max-width: 440px; text-align: center; background: var(--card);
-    border: 1px solid var(--card-border); border-radius: 20px; padding: 36px 24px;
-    box-shadow: 0 8px 24px var(--shadow);
+  h1 { font-size: clamp(24px, 6vw, 32px); margin: 0 0 8px; text-align: center; }
+  p.sub { color: var(--muted); margin: 0 0 6px; text-align: center; max-width: 480px; line-height: 1.5; }
+  a.back-link { color: var(--accent); font-size: 13.5px; text-decoration: none; font-weight: 600; margin-bottom: 26px; }
+  a.back-link:hover { text-decoration: underline; }
+  .list {
+    display: flex; flex-direction: column; gap: 14px;
+    width: 100%; max-width: 560px; margin-top: 20px;
   }
-  .code { font-size: clamp(56px, 18vw, 84px); font-weight: 800; color: var(--accent); line-height: 1; margin: 0; letter-spacing: -2px; }
-  .emoji { font-size: 2.2rem; margin: 14px 0 6px; }
-  h1 { font-size: 1.25rem; margin: 0 0 8px; }
-  p { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
-  .bar { height: 8px; border-radius: 999px; background: var(--bg1); overflow: hidden; margin: 0 auto 26px; max-width: 240px; }
-  .bar span { display: block; height: 100%; width: 40%; background: var(--accent); border-radius: 999px; animation: slide 1.6s ease-in-out infinite; }
-  @keyframes slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
-  @media (prefers-reduced-motion: reduce) { .bar span { animation: none; width: 40%; } }
-  a.btn {
-    display: inline-block; padding: 11px 20px; border-radius: 999px; background: var(--accent);
-    color: #fff; font-weight: 600; font-size: 14px; text-decoration: none;
+  a.lesson-card {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 16px;
+    padding: 18px 20px; text-decoration: none; color: var(--ink);
+    box-shadow: 0 8px 24px var(--shadow); transition: transform 0.15s ease;
   }
-  a.btn:hover { filter: brightness(1.08); }
+  a.lesson-card:hover { transform: translateY(-2px); }
+  .lesson-num {
+    flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+    background: var(--bg1); color: var(--accent); font-weight: 800; font-size: 17px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .lesson-info h2 { margin: 0 0 3px; font-size: 15.5px; }
+  .lesson-info p { margin: 0; color: var(--muted); font-size: 13px; }
+  .lesson-arrow { margin-left: auto; color: var(--accent); font-weight: 700; font-size: 17px; }
 </style>
 </head>
 <body>
 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">🌙</button>
-<div class="box">
-  <p class="code">404</p>
-  <div class="emoji">🚧</div>
-  <h1>📊 MS PowerPoint Lessons — Work in Progress</h1>
-  <p>This page isn't ready yet. Your teacher is still building these lessons. Check back soon!</p>
-  <div class="bar"><span></span></div>
-  <a class="btn" href="../index.html">← Back to Home</a>
+
+<h1>📊 Microsoft PowerPoint Lessons</h1>
+<p class="sub">Six short lessons for Grades 4–7 — make slides, add pictures, transitions and animations, and present like a pro.</p>
+<a class="back-link" href="../index.html">← Back to Home</a>
+
+<div class="list">
+  <a class="lesson-card" href="lesson-1-getting-to-know-powerpoint.html">
+    <div class="lesson-num">1</div>
+    <div class="lesson-info">
+      <h2>Getting to Know PowerPoint</h2>
+      <p>What a presentation is, and the parts of the PowerPoint screen.</p>
+    </div>
+    <div class="lesson-arrow">→</div>
+  </a>
+  <a class="lesson-card" href="lesson-2-making-slides.html">
+    <div class="lesson-num">2</div>
+    <div class="lesson-info">
+      <h2>Making Your First Slides</h2>
+      <p>New Slide, layouts, typing in placeholders, themes, and saving.</p>
+    </div>
+    <div class="lesson-arrow">→</div>
+  </a>
+  <a class="lesson-card" href="lesson-3-inserting-images.html">
+    <div class="lesson-num">3</div>
+    <div class="lesson-info">
+      <h2>Inserting Images</h2>
+      <p>Insert › Pictures, resizing, moving, rotating, and picture styles.</p>
+    </div>
+    <div class="lesson-arrow">→</div>
+  </a>
+  <a class="lesson-card" href="lesson-4-transitions.html">
+    <div class="lesson-num">4</div>
+    <div class="lesson-info">
+      <h2>Slide Transitions</h2>
+      <p>Effects between slides: Fade, Push, Wipe — plus Duration and Apply To All.</p>
+    </div>
+    <div class="lesson-arrow">→</div>
+  </a>
+  <a class="lesson-card" href="lesson-5-animations.html">
+    <div class="lesson-num">5</div>
+    <div class="lesson-info">
+      <h2>Animations</h2>
+      <p>Making text and pictures appear, move, and disappear on a slide.</p>
+    </div>
+    <div class="lesson-arrow">→</div>
+  </a>
+  <a class="lesson-card" href="lesson-6-presenting.html">
+    <div class="lesson-num">6</div>
+    <div class="lesson-info">
+      <h2>Presenting Your Slideshow</h2>
+      <p>Starting the show with F5, moving between slides, and presenting tips.</p>
+    </div>
+    <div class="lesson-arrow">→</div>
+  </a>
 </div>
+
 <script>
 (function () {
-  const KEY = 'msWordLessonsTheme';
+  const THEME_KEY = 'msWordLessonsTheme';
   const root = document.documentElement;
-  const btn = document.getElementById('themeToggle');
-  function eff() {
-    const x = root.getAttribute('data-theme');
-    if (x) return x;
+  const themeToggle = document.getElementById('themeToggle');
+  function effectiveTheme() {
+    const explicit = root.getAttribute('data-theme');
+    if (explicit) return explicit;
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
-  function icon() {
-    const d = eff() === 'dark';
-    btn.textContent = d ? '☀️' : '🌙';
-    btn.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode');
+  function refreshToggleIcon() {
+    const dark = effectiveTheme() === 'dark';
+    themeToggle.textContent = dark ? '☀️' : '🌙';
+    themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
   }
-  let saved = null;
-  try { saved = localStorage.getItem(KEY); } catch (e) {}
-  if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
-  icon();
-  btn.addEventListener('click', () => {
-    const t = eff() === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', t); icon();
-    try { localStorage.setItem(KEY, t); } catch (e) {}
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    refreshToggleIcon();
+    try { localStorage.setItem(THEME_KEY, theme); } catch (err) { /* ignore */ }
+  }
+  (function initTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch (err) { /* ignore */ }
+    if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+    refreshToggleIcon();
+  })();
+  themeToggle.addEventListener('click', () => {
+    setTheme(effectiveTheme() === 'dark' ? 'light' : 'dark');
   });
 })();
 </script>
-
 </body>
 </html>
