@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PowerPoint Lesson 6: Presenting Your Slideshow</title>
+<title>PowerPoint Lesson 5: Slide Transitions</title>
 <style>
   :root {
     --bg1: #eef2ff; --bg2: #f8fafc; --card: #ffffff;
@@ -241,59 +241,109 @@
   <div class="card">
     <div class="lesson-nav-top">
       <a href="index.html">← All Lessons</a>
-      <span class="lesson-badge">Lesson 6 of 6</span>
+      <span class="lesson-badge">Lesson 5 of 7</span>
     </div>
 
-    <h1>🎤 Presenting Your Slideshow</h1>
-    <div class="subtitle">Your slides are ready — now it’s time to show them to your class!</div>
+    <h1>🔀 Slide Transitions</h1>
+    <div class="subtitle">Make your slides change in a smooth and fun way.</div>
 
-    <h2 class="section-title">▶️ Starting the Slide Show</h2>
-    <div class="shortcut-grid">
-      <div class="shortcut"><div class="keys"><span class="kbd">F5</span></div><div class="what">Start from the <b>first</b> slide</div></div>
-      <div class="shortcut"><div class="keys"><span class="kbd">Shift</span> + <span class="kbd">F5</span></div><div class="what">Start from the slide you are <b>on now</b></div></div>
-      <div class="shortcut"><div class="keys"><span class="kbd">Esc</span></div><div class="what"><b>End</b> the slide show</div></div>
+    <h2 class="section-title">🔀 What Is a Transition?</h2>
+    <p>A <b>transition</b> is the effect you see when one slide <b>changes</b> to the next — like the next slide fading in or pushing the old one away. Transitions happen <b>between slides</b>.</p>
+
+    <div class="demo" id="transDemo">
+      <div class="demo-title">▶️ See it for yourself — pick a transition:</div>
+      <div class="demo-stage">
+        <div class="dslide s1">Slide 1<small>My Favorite Animals</small></div>
+        <div class="dslide s2" style="opacity:0">Slide 2<small>Dogs 🐶</small></div>
+      </div>
+      <div class="demo-btns">
+        <button type="button" data-t="fade" class="on">Fade</button>
+        <button type="button" data-t="push">Push</button>
+        <button type="button" data-t="wipe">Wipe</button>
+        <button type="button" data-t="zoom">Zoom</button>
+        <button type="button" data-t="none">None</button>
+      </div>
+      <div class="demo-note">Click a button to change from Slide 1 to Slide 2.</div>
     </div>
-    <p>You can also click the <b>Slide Show</b> tab and click <b>From Beginning</b>. Your slide fills the whole screen, and transitions and animations play.</p>
 
-    <h2 class="section-title">⏭️ Moving Between Slides</h2>
-    <div class="compare">
-      <div><h3>Next ➡️</h3>Click the mouse, or press <span class="kbd">→</span>, <span class="kbd">Space</span>, or <span class="kbd">Enter</span>.</div>
-      <div><h3>⬅️ Back</h3>Press <span class="kbd">←</span> or <span class="kbd">Backspace</span> to go to the previous slide or animation.</div>
+    <h2 class="section-title">🛠️ Adding a Transition</h2>
+    <ol class="steps">
+      <li>In the Slides Pane, click the slide you want the effect on.</li>
+      <li>Click the <b>Transitions</b> tab.</li>
+      <li>Click an effect, like <b>Fade</b> or <b>Push</b>. PowerPoint plays a quick <b>preview</b>.</li>
+    </ol>
+    <div class="pp">
+      <div class="pp-title"><span>📊 My Favorite Animals - PowerPoint</span><span class="dots"><span></span><span></span><span></span></span></div>
+      <div class="pp-tabs"><span>File</span><span>Home</span><span>Insert</span><span>Design</span><span class="active">Transitions</span><span>Animations</span><span>Slide Show</span><span>View</span></div>
+      <div class="pp-ribbon"><div class="pp-btn"><i>👁️</i>Preview</div><div class="pp-sep"></div><div class="pp-btn"><i>◌</i>None</div><div class="pp-btn hl"><i>▒</i>Fade</div><div class="pp-btn"><i>⇨</i>Push</div><div class="pp-btn"><i>▶</i>Wipe</div><div class="pp-sep"></div><div class="pp-btn"><i>⚙️</i>Effect Options</div><div class="pp-btn"><i>⏱️</i>Duration</div><div class="pp-btn"><i>⧉</i>Apply To All</div></div>
+      <div class="pp-body"><div class="pp-thumbs"><div class="pp-thumb"><b>1</b><span class=star>★</span><div>Title</div></div><div class="pp-thumb sel"><b>2</b><span class=star>★</span><div>Dogs</div></div><div class="pp-thumb"><b>3</b><div>Cats</div></div></div><div class="pp-stage"><div class="slide"><h3>Dogs 🐶</h3><p>Loyal · Playful · Smart</p></div></div></div>
+      <div class="pp-notes">Click to add notes</div>
+      <div class="pp-status"><span>Slide 2 of 3</span><span>▭ ▦ ▣ &nbsp; − ——●—— + 68%</span></div>
     </div>
-    <p>Each click plays the next <b>animation</b> first. When all animations on a slide are done, the next click goes to the next slide.</p>
+    <div class="wm-caption">A small <b>★ star</b> appears next to slides that have a transition.</div>
 
-    <h2 class="section-title">🌟 Tips for a Great Presentation</h2>
-    <ul class="steps">
-      <li><b>Practice</b> at least once before presenting to the class.</li>
-      <li><b>Face your audience</b> — glance at the screen, but don't read every word from it.</li>
-      <li>Speak <b>loudly and slowly</b> so everyone can hear.</li>
-      <li>Use the <b>Notes</b> area for reminders of what to say.</li>
-      <li>End with a <b>"Thank you!"</b> slide and ask if anyone has questions.</li>
-    </ul>
+    <h2 class="section-title">⚙️ Changing the Settings</h2>
+    <div class="callouts">
+      <div><b>Effect Options</b> — changes the direction, like <i>From Right</i> or <i>From Top</i>.</div>
+      <div><b>Duration</b> — how long the effect takes. <b>01.00</b> = 1 second. Bigger number = slower.</div>
+      <div><b>Apply To All</b> — gives the same transition to <b>every</b> slide at once.</div>
+    </div>
 
     <div class="tip">
-      <b class="tip-title">Try It! — Final Project</b>
-      Finish your <b>All About Me</b> presentation with at least <b>5 slides</b>: a title slide, at least one picture per slide, one transition for all slides, and one animation on each slide. Add a <b>Thank You</b> slide at the end, practice, and present it to a classmate using <b>F5</b>!
+      <b class="tip-title">Less Is More</b>
+      Pick <b>one or two</b> simple transitions for the whole presentation. Too many different flashy effects can distract your audience from what you are saying.
+    </div>
+
+    <div class="tip">
+      <b class="tip-title">Try It!</b>
+      Add the <b>Fade</b> transition to all your slides using <b>Apply To All</b>. Then change just your last slide to <b>Push</b> with a Duration of <b>01.50</b>.
     </div>
 
     <div class="recap">
       <h2>✅ What You Learned</h2>
-      <ul><li><b>F5</b> starts from the beginning; <b>Shift + F5</b> starts from the current slide.</li><li>Click, <b>→</b>, <b>Space</b>, or <b>Enter</b> go forward; <b>←</b> goes back.</li><li><b>Esc</b> ends the slide show.</li><li>Practice, face your audience, and speak clearly.</li></ul>
-    </div>
-
-    <div class="tip" style="background: var(--recap-bg); border-color: var(--recap-border); color: var(--ink);">
-      <b class="tip-title">🎉 You finished all 6 PowerPoint lessons!</b>
-      You can now make slides, choose layouts and themes, insert pictures, add transitions and animations, and present your slideshow like a pro. Great job!
+      <ul><li>A <b>transition</b> is the effect between one slide and the next.</li><li>Add one from the <b>Transitions</b> tab; a ★ appears in the Slides Pane.</li><li><b>Effect Options</b> = direction, <b>Duration</b> = speed, <b>Apply To All</b> = every slide.</li><li>Simple transitions look the most professional.</li></ul>
     </div>
 
     <div class="lesson-nav-bottom">
-      <a class="nav-btn" href="lesson-5-animations.html">← Lesson 5</a>
-      <a class="nav-btn primary" href="index.html">Back to All Lessons</a>
+      <a class="nav-btn" href="lesson-4-inserting-images.html">← Lesson 4</a>
+      <a class="nav-btn primary" href="lesson-6-animations.html">Lesson 6: Animations →</a>
     </div>
   </div>
 </div>
 
 <script>
+
+(function () {
+  const d = document.getElementById('transDemo'); if (!d) return;
+  const s1 = d.querySelector('.s1'), s2 = d.querySelector('.s2');
+  const css = {
+    fade: ['opacity 0.9s', {opacity:'0'}, {opacity:'1'}],
+    push: ['transform 0.8s ease', {transform:'translateX(100%)'}, {transform:'translateX(0)'}, true],
+    wipe: ['clip-path 0.9s ease', {clipPath:'inset(0 100% 0 0)'}, {clipPath:'inset(0 0 0 0)'}],
+    zoom: ['transform 0.8s ease, opacity 0.8s', {transform:'scale(0.1)', opacity:'0'}, {transform:'scale(1)', opacity:'1'}],
+    none: ['none', {opacity:'1'}, {opacity:'1'}]
+  };
+  let showing2 = false, timer;
+  function reset(el){ el.style.transition='none'; el.style.opacity=''; el.style.transform=''; el.style.clipPath=''; }
+  function play(t) {
+    clearTimeout(timer);
+    const [from, to] = showing2 ? [s2, s1] : [s1, s2];
+    [s1, s2].forEach(reset);
+    from.style.zIndex = 1; to.style.zIndex = 2; from.style.opacity = '1';
+    const [tr, a, b, push] = css[t];
+    Object.assign(to.style, a); if (t !== 'fade' && t !== 'zoom') to.style.opacity = '1';
+    void to.offsetWidth;
+    to.style.transition = tr; from.style.transition = push ? tr : 'none';
+    Object.assign(to.style, b);
+    if (push) from.style.transform = 'translateX(-100%)';
+    showing2 = !showing2;
+  }
+  d.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    d.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === btn));
+    play(btn.dataset.t);
+  }));
+})();
+
 (function () {
   const THEME_KEY = 'msWordLessonsTheme';
   const root = document.documentElement;

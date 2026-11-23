@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PowerPoint Lesson 4: Slide Transitions</title>
+<title>PowerPoint Lesson 3: Themes and Slide Design</title>
 <style>
   :root {
     --bg1: #eef2ff; --bg2: #f8fafc; --card: #ffffff;
@@ -241,72 +241,92 @@
   <div class="card">
     <div class="lesson-nav-top">
       <a href="index.html">← All Lessons</a>
-      <span class="lesson-badge">Lesson 4 of 6</span>
+      <span class="lesson-badge">Lesson 3 of 7</span>
     </div>
 
-    <h1>🔀 Slide Transitions</h1>
-    <div class="subtitle">Make your slides change in a smooth and fun way.</div>
+    <h1>🎨 Themes and Slide Design</h1>
+    <div class="subtitle">Give your whole presentation a matching look — and make it your own.</div>
 
-    <h2 class="section-title">🔀 What Is a Transition?</h2>
-    <p>A <b>transition</b> is the effect you see when one slide <b>changes</b> to the next — like the next slide fading in or pushing the old one away. Transitions happen <b>between slides</b>.</p>
+    <h2 class="section-title">🎨 What Is a Theme?</h2>
+    <p>A <b>theme</b> is a ready-made design. With one click it gives <b>every slide</b> the same <b>colors</b>, <b>fonts</b>, and <b>background</b>, so your presentation looks neat and matching from start to end.</p>
 
-    <div class="demo" id="transDemo">
-      <div class="demo-title">▶️ See it for yourself — pick a transition:</div>
-      <div class="demo-stage">
-        <div class="dslide s1">Slide 1<small>My Favorite Animals</small></div>
-        <div class="dslide s2" style="opacity:0">Slide 2<small>Dogs 🐶</small></div>
+    <div class="demo" id="themeDemo">
+      <div class="demo-title">▶️ Try it — click a theme:</div>
+      <div class="demo-stage" style="background:#fff">
+        <div class="dslide" id="themeSlide" style="background:#ffffff">
+          <span id="themeTitle" style="color:#c43e1c;font-family:Calibri,Arial,sans-serif">My Favorite Animals</span>
+          <small id="themeSub" style="color:#444444;font-family:Calibri,Arial,sans-serif">by Juan Dela Cruz · Grade 5</small>
+        </div>
       </div>
-      <div class="demo-btns">
-        <button type="button" data-t="fade" class="on">Fade</button>
-        <button type="button" data-t="push">Push</button>
-        <button type="button" data-t="wipe">Wipe</button>
-        <button type="button" data-t="zoom">Zoom</button>
-        <button type="button" data-t="none">None</button>
-      </div>
-      <div class="demo-note">Click a button to change from Slide 1 to Slide 2.</div>
+      <div class="demo-btns"><button type="button" class="on" data-bg="#ffffff" data-tc="#c43e1c" data-bc="#444444" data-f="Calibri, Arial, sans-serif">Office</button><button type="button" class="" data-bg="linear-gradient(135deg,#0c4a6e,#0284c7)" data-tc="#ffffff" data-bc="#e0f2fe" data-f="Georgia, serif">Ocean</button><button type="button" class="" data-bg="linear-gradient(135deg,#14532d,#16a34a)" data-tc="#fef9c3" data-bc="#dcfce7" data-f="Trebuchet MS, sans-serif">Forest</button><button type="button" class="" data-bg="linear-gradient(135deg,#7c2d12,#f59e0b)" data-tc="#ffffff" data-bc="#ffedd5" data-f="Verdana, sans-serif">Sunset</button><button type="button" class="" data-bg="linear-gradient(135deg,#1e1b4b,#7c3aed)" data-tc="#fde68a" data-bc="#ede9fe" data-f="Impact, Arial Black, sans-serif">Galaxy</button><button type="button" class="" data-bg="repeating-linear-gradient(#fffdf5 0 22px,#bfdbfe 22px 23px)" data-tc="#1d4ed8" data-bc="#334155" data-f="Comic Sans MS, cursive">Notebook</button></div>
+      <div class="demo-note">Notice how the <b>background</b>, <b>colors</b>, and <b>font</b> all change together. That's a theme!</div>
     </div>
 
-    <h2 class="section-title">🛠️ Adding a Transition</h2>
+    <h2 class="section-title">🖱️ Applying a Theme</h2>
     <ol class="steps">
-      <li>In the Slides Pane, click the slide you want the effect on.</li>
-      <li>Click the <b>Transitions</b> tab.</li>
-      <li>Click an effect, like <b>Fade</b> or <b>Push</b>. PowerPoint plays a quick <b>preview</b>.</li>
+      <li>Click the <b>Design</b> tab.</li>
+      <li>Point your mouse at a theme (don't click yet). Your slide shows a <b>preview</b> of how it will look.</li>
+      <li>Click the theme you like. It changes <b>all</b> your slides.</li>
+      <li>Click the small <b>More ▾</b> arrow at the side of the gallery to see even more themes.</li>
     </ol>
     <div class="pp">
       <div class="pp-title"><span>📊 My Favorite Animals - PowerPoint</span><span class="dots"><span></span><span></span><span></span></span></div>
-      <div class="pp-tabs"><span>File</span><span>Home</span><span>Insert</span><span>Design</span><span class="active">Transitions</span><span>Animations</span><span>Slide Show</span><span>View</span></div>
-      <div class="pp-ribbon"><div class="pp-btn"><i>👁️</i>Preview</div><div class="pp-sep"></div><div class="pp-btn"><i>◌</i>None</div><div class="pp-btn hl"><i>▒</i>Fade</div><div class="pp-btn"><i>⇨</i>Push</div><div class="pp-btn"><i>▶</i>Wipe</div><div class="pp-sep"></div><div class="pp-btn"><i>⚙️</i>Effect Options</div><div class="pp-btn"><i>⏱️</i>Duration</div><div class="pp-btn"><i>⧉</i>Apply To All</div></div>
-      <div class="pp-body"><div class="pp-thumbs"><div class="pp-thumb"><b>1</b><span class=star>★</span><div>Title</div></div><div class="pp-thumb sel"><b>2</b><span class=star>★</span><div>Dogs</div></div><div class="pp-thumb"><b>3</b><div>Cats</div></div></div><div class="pp-stage"><div class="slide"><h3>Dogs 🐶</h3><p>Loyal · Playful · Smart</p></div></div></div>
+      <div class="pp-tabs"><span>File</span><span>Home</span><span>Insert</span><span class="active">Design</span><span>Transitions</span><span>Animations</span><span>Slide Show</span><span>View</span></div>
+      <div class="pp-ribbon"><div class="pp-btn"><i>⬜</i>Office</div><div class="pp-btn hl"><i>🟦</i>Ocean</div><div class="pp-btn"><i>🟩</i>Forest</div><div class="pp-btn"><i>🟧</i>Sunset</div><div class="pp-btn"><i>▾</i>More</div><div class="pp-sep"></div><div class="pp-btn"><i>🎨</i>Variants</div><div class="pp-sep"></div><div class="pp-btn"><i>📐</i>Slide Size</div><div class="pp-btn"><i>🖌️</i>Format Background</div></div>
+      <div class="pp-body"><div class="pp-thumbs"><div class="pp-thumb sel"><b>1</b><div>Title</div></div><div class="pp-thumb"><b>2</b><div>Dogs</div></div><div class="pp-thumb"><b>3</b><div>Cats</div></div></div><div class="pp-stage"><div class="slide"><div style="position:absolute;inset:0;background:linear-gradient(135deg,#0c4a6e,#0284c7)"></div><h3 style="position:relative;color:#fff;font-family:Georgia,serif">My Favorite Animals</h3><p style="position:relative;color:#e0f2fe">by Juan Dela Cruz · Grade 5</p></div></div></div>
       <div class="pp-notes">Click to add notes</div>
-      <div class="pp-status"><span>Slide 2 of 3</span><span>▭ ▦ ▣ &nbsp; − ——●—— + 68%</span></div>
+      <div class="pp-status"><span>Slide 1 of 3</span><span>▭ ▦ ▣ &nbsp; − ——●—— + 68%</span></div>
     </div>
-    <div class="wm-caption">A small <b>★ star</b> appears next to slides that have a transition.</div>
+    <p>Want a different theme on just <b>one</b> slide? Select that slide, then <b>right-click</b> the theme and choose <b>Apply to Selected Slides</b>.</p>
 
-    <h2 class="section-title">⚙️ Changing the Settings</h2>
+    <h2 class="section-title">🌈 Variants: Colors, Fonts, and Background Styles</h2>
+    <p>Next to the themes is the <b>Variants</b> group. Each variant is the same theme in different colors. Click the <b>More ▾</b> arrow in Variants to change things one by one:</p>
     <div class="callouts">
-      <div><b>Effect Options</b> — changes the direction, like <i>From Right</i> or <i>From Top</i>.</div>
-      <div><b>Duration</b> — how long the effect takes. <b>01.00</b> = 1 second. Bigger number = slower.</div>
-      <div><b>Apply To All</b> — gives the same transition to <b>every</b> slide at once.</div>
+      <div><b>🎨 Colors</b> — pick a different set of colors for the whole theme.</div>
+      <div><b>🔤 Fonts</b> — change the font for all titles and body text at once.</div>
+      <div><b>🖼️ Background Styles</b> — choose a lighter or darker background.</div>
+    </div>
+
+    <h2 class="section-title">🖌️ Format Background</h2>
+    <p>You can design your own background too! Click <b>Design › Format Background</b>. A panel opens on the right with these choices:</p>
+    <div class="layouts">
+      <div class="lay"><div style="background:#fde68a"></div>Solid Fill — one color</div>
+      <div class="lay"><div style="background:linear-gradient(135deg,#f472b6,#60a5fa)"></div>Gradient Fill — colors blending</div>
+      <div class="lay"><div style="background:linear-gradient(135deg,#86efac,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:26px">🏝️</div>Picture Fill — a photo</div>
+      <div class="lay"><div style="background:repeating-linear-gradient(45deg,#e5e7eb 0 6px,#fff 6px 12px)"></div>Pattern Fill — stripes, dots</div>
+    </div>
+    <p>The background only changes the <b>slide you are on</b>. Click <b>Apply to All</b> at the bottom of the panel to use it on every slide.</p>
+
+    <h2 class="section-title">📐 Slide Size</h2>
+    <div class="compare">
+      <div><h3>▭ Widescreen (16:9)</h3>The normal size today. Fits TVs, projectors, and laptops.</div>
+      <div><h3>▢ Standard (4:3)</h3>Almost square. Used for older projectors or printing.</div>
+    </div>
+    <p>Change it at <b>Design › Slide Size</b>. It's best to choose the size <b>before</b> you add pictures, so nothing gets stretched.</p>
+
+    <div class="tip">
+      <b class="tip-title">💡 Designer (Design Ideas)</b>
+      In <b>PowerPoint for Microsoft 365</b>, the <b>Designer</b> button on the Design tab suggests ready-made layouts for your slide, especially after you add a picture. Just click one you like! (Older versions and other apps may not have this button.)
     </div>
 
     <div class="tip">
-      <b class="tip-title">Less Is More</b>
-      Pick <b>one or two</b> simple transitions for the whole presentation. Too many different flashy effects can distract your audience from what you are saying.
+      <b class="tip-title">Make It Easy to Read!</b>
+      Use <b>dark text on a light background</b> or <b>light text on a dark background</b>. Avoid busy pictures behind your words, and keep <b>one theme</b> for the whole presentation.
     </div>
 
     <div class="tip">
-      <b class="tip-title">Try It!</b>
-      Add the <b>Fade</b> transition to all your slides using <b>Apply To All</b>. Then change just your last slide to <b>Push</b> with a Duration of <b>01.50</b>.
+      <b class="tip-title">Try It! — Design Your All About Me</b>
+      Open your <b>All About Me</b> presentation. <b>1)</b> Apply a <b>theme</b> you like. <b>2)</b> Try two different <b>Variants</b> and keep your favorite. <b>3)</b> Change the theme <b>Fonts</b>. <b>4)</b> Give only your <b>title slide</b> a <b>Gradient Fill</b> background. Can everyone still read your words?
     </div>
 
     <div class="recap">
       <h2>✅ What You Learned</h2>
-      <ul><li>A <b>transition</b> is the effect between one slide and the next.</li><li>Add one from the <b>Transitions</b> tab; a ★ appears in the Slides Pane.</li><li><b>Effect Options</b> = direction, <b>Duration</b> = speed, <b>Apply To All</b> = every slide.</li><li>Simple transitions look the most professional.</li></ul>
+      <ul><li>A <b>theme</b> gives all slides matching colors, fonts, and background — find them on the <b>Design</b> tab.</li><li><b>Variants</b> change the theme’s <b>Colors</b>, <b>Fonts</b>, and <b>Background Styles</b>.</li><li><b>Format Background</b> lets you use a solid color, gradient, picture, or pattern — click <b>Apply to All</b> for every slide.</li><li><b>Slide Size</b>: Widescreen (16:9) or Standard (4:3).</li><li>Always check that your text is easy to read.</li></ul>
     </div>
 
     <div class="lesson-nav-bottom">
-      <a class="nav-btn" href="lesson-3-inserting-images.html">← Lesson 3</a>
-      <a class="nav-btn primary" href="lesson-5-animations.html">Lesson 5: Animations →</a>
+      <a class="nav-btn" href="lesson-2-making-slides.html">← Lesson 2</a>
+      <a class="nav-btn primary" href="lesson-4-inserting-images.html">Lesson 4: Inserting Images →</a>
     </div>
   </div>
 </div>
@@ -314,33 +334,14 @@
 <script>
 
 (function () {
-  const d = document.getElementById('transDemo'); if (!d) return;
-  const s1 = d.querySelector('.s1'), s2 = d.querySelector('.s2');
-  const css = {
-    fade: ['opacity 0.9s', {opacity:'0'}, {opacity:'1'}],
-    push: ['transform 0.8s ease', {transform:'translateX(100%)'}, {transform:'translateX(0)'}, true],
-    wipe: ['clip-path 0.9s ease', {clipPath:'inset(0 100% 0 0)'}, {clipPath:'inset(0 0 0 0)'}],
-    zoom: ['transform 0.8s ease, opacity 0.8s', {transform:'scale(0.1)', opacity:'0'}, {transform:'scale(1)', opacity:'1'}],
-    none: ['none', {opacity:'1'}, {opacity:'1'}]
-  };
-  let showing2 = false, timer;
-  function reset(el){ el.style.transition='none'; el.style.opacity=''; el.style.transform=''; el.style.clipPath=''; }
-  function play(t) {
-    clearTimeout(timer);
-    const [from, to] = showing2 ? [s2, s1] : [s1, s2];
-    [s1, s2].forEach(reset);
-    from.style.zIndex = 1; to.style.zIndex = 2; from.style.opacity = '1';
-    const [tr, a, b, push] = css[t];
-    Object.assign(to.style, a); if (t !== 'fade' && t !== 'zoom') to.style.opacity = '1';
-    void to.offsetWidth;
-    to.style.transition = tr; from.style.transition = push ? tr : 'none';
-    Object.assign(to.style, b);
-    if (push) from.style.transform = 'translateX(-100%)';
-    showing2 = !showing2;
-  }
+  const d = document.getElementById('themeDemo'); if (!d) return;
+  const slide = document.getElementById('themeSlide'), t = document.getElementById('themeTitle'), sub = document.getElementById('themeSub');
+  slide.style.transition = 'background 0.4s';
   d.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
     d.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === btn));
-    play(btn.dataset.t);
+    slide.style.background = btn.dataset.bg;
+    t.style.color = btn.dataset.tc; t.style.fontFamily = btn.dataset.f;
+    sub.style.color = btn.dataset.bc; sub.style.fontFamily = btn.dataset.f;
   }));
 })();
 
